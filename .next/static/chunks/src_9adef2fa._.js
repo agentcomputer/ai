@@ -474,34 +474,38 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-const useMCP = (// serverConfigs parameter is kept for potential future use but not directly passed to actions currently
-// as actions use the centrally defined MCP_SERVER_CONFIGS.
-_serverConfigs = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$mcp$2d$servers$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MCP_SERVER_CONFIGS"])=>{
+const useMCP = (_serverConfigs = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$mcp$2d$servers$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MCP_SERVER_CONFIGS"])=>{
     _s();
     const [tools, setTools] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
-    const [isConnecting, setIsConnecting] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true); // Start as true for initial load
+    const [isConnecting, setIsConnecting] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [connectedServers, setConnectedServers] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
-    const initializeAndLoadTools = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
-        "useMCP.useCallback[initializeAndLoadTools]": async ()=>{
+    const [connectedServers, setConnectedServers] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]); // Updated type
+    const initializeAndLoadData = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "useMCP.useCallback[initializeAndLoadData]": async ()=>{
             setIsConnecting(true);
             setError(null);
             try {
-                console.log("useMCP: Calling initializeAndListToolsAction...");
-                const result = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$actions$2f$mcp$2d$actions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initializeAndListToolsAction"])();
-                if (result.tools && result.connectedServerIds) {
-                    setTools(result.tools);
-                    setConnectedServers(result.connectedServerIds);
-                    console.log(`useMCP: Initialization successful. Tools: ${result.tools.length}, Connected Servers: ${result.connectedServerIds.join(', ')}`);
+                console.log("useMCP: Calling initializeAndListToolsAction and getConnectedMcpServersInfoAction...");
+                // Fetch tools and basic connected server IDs first
+                const toolsResult = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$actions$2f$mcp$2d$actions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["initializeAndListToolsAction"])();
+                if (toolsResult.tools) {
+                    setTools(toolsResult.tools);
+                    console.log(`useMCP: Tools loaded: ${toolsResult.tools.length}`);
                 } else {
-                    console.warn("useMCP: initializeAndListToolsAction returned unexpected data.", result);
-                    setError("MCP initialization returned incomplete data.");
+                    console.warn("useMCP: initializeAndListToolsAction did not return tools.", toolsResult);
+                    // setError("MCP initialization did not return tools."); // Keep error for server info
                     setTools([]);
-                    setConnectedServers([]);
+                }
+                // Then fetch detailed connected server info
+                const serversInfo = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$actions$2f$mcp$2d$actions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["getConnectedMcpServersInfoAction"])();
+                setConnectedServers(serversInfo);
+                console.log(`useMCP: Connected servers info loaded: ${serversInfo.length}`);
+                if (!toolsResult.tools && serversInfo.length === 0) {
+                    setError("MCP initialization failed to load tools or connect to servers.");
                 }
             } catch (err) {
-                const errorMessage = err instanceof Error ? err.message : 'Failed to initialize MCP and list tools.';
-                console.error("useMCP: Error during initializeAndListToolsAction:", errorMessage, err);
+                const errorMessage = err instanceof Error ? err.message : 'Failed to initialize MCP and load data.';
+                console.error("useMCP: Error during initialization:", errorMessage, err);
                 setError(errorMessage);
                 setTools([]);
                 setConnectedServers([]);
@@ -509,20 +513,19 @@ _serverConfigs = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2
                 setIsConnecting(false);
             }
         }
-    }["useMCP.useCallback[initializeAndLoadTools]"], []);
+    }["useMCP.useCallback[initializeAndLoadData]"], []);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "useMCP.useEffect": ()=>{
-            initializeAndLoadTools();
-        // No explicit cleanup needed here for disconnectAll, as that's typically an app-level concern
-        // or handled by the server actions layer if needed (e.g. on app shutdown, if possible from server actions)
+            initializeAndLoadData();
         }
     }["useMCP.useEffect"], [
-        initializeAndLoadTools
+        initializeAndLoadData
     ]);
     const executeMcpTool = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
         "useMCP.useCallback[executeMcpTool]": async (serverId, toolName, args)=>{
-            if (!connectedServers.includes(serverId)) {
-                // This check is client-side. The server action will also validate.
+            if (!connectedServers.some({
+                "useMCP.useCallback[executeMcpTool]": (s)=>s.id === serverId
+            }["useMCP.useCallback[executeMcpTool]"])) {
                 console.error(`useMCP: Attempt to execute tool on non-connected server ${serverId}`);
                 throw new Error(`MCP Server ${serverId} is not listed as connected.`);
             }
@@ -530,23 +533,22 @@ _serverConfigs = __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2
                 return await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$actions$2f$mcp$2d$actions$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["executeMcpToolAction"])(serverId, toolName, args);
             } catch (err) {
                 console.error(`useMCP: Error executing tool ${toolName} on ${serverId} via action:`, err);
-                // Potentially set an error state here if you want to display it in the UI
-                throw err; // Re-throw to be handled by the caller UI component
+                throw err;
             }
         }
     }["useMCP.useCallback[executeMcpTool]"], [
         connectedServers
-    ]);
+    ]); // Dependency on connectedServers for the check
     return {
         tools,
         executeTool: executeMcpTool,
         isConnecting,
         error,
-        isReady: !isConnecting && error === null && connectedServers.length > 0,
+        isReady: !isConnecting && error === null,
         connectedServers
     };
 };
-_s(useMCP, "tDuHqGYCBIlWPxTu1YHD5/qL3oc=");
+_s(useMCP, "K1V7J0Jwywyle4BpcBwvSRD8d9c=");
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
     __turbopack_context__.k.registerExports(module, globalThis.$RefreshHelpers$);
 }
@@ -563,7 +565,7 @@ __turbopack_context__.s({
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$use$2d$mcp$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/hooks/use-mcp.ts [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$mcp$2d$servers$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/config/mcp-servers.ts [app-client] (ecmascript)"); // Ensure this path is correct
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$mcp$2d$servers$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/config/mcp-servers.ts [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature(), _s1 = __turbopack_context__.k.signature();
 "use client";
@@ -579,18 +581,22 @@ const defaultMCPState = {
     isConnecting: true,
     error: null,
     isReady: false,
+    // Ensure connectedServers in default state matches the expected type.
+    // The type is Array<Pick<McpServerConfig, 'id' | 'name' | 'description' | 'icon' | 'tags'> & {toolsCount: number}>
     connectedServers: []
 };
 const MCPContext = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createContext"])(defaultMCPState);
 const MCPProvider = ({ children })=>{
     _s();
-    const mcpState = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$use$2d$mcp$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMCP"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$mcp$2d$servers$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MCP_SERVER_CONFIGS"]); // Pass the configurations here
+    // useMCP doesn't strictly need MCP_SERVER_CONFIGS passed if actions always use the central one,
+    // but passing it aligns with its signature and allows flexibility if needed.
+    const mcpState = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$hooks$2f$use$2d$mcp$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMCP"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$config$2f$mcp$2d$servers$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["MCP_SERVER_CONFIGS"]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(MCPContext.Provider, {
         value: mcpState,
         children: children
     }, void 0, false, {
         fileName: "[project]/src/contexts/mcp-context.tsx",
-        lineNumber: 24,
+        lineNumber: 29,
         columnNumber: 5
     }, this);
 };

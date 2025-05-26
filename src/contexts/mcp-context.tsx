@@ -3,7 +3,8 @@
 
 import React, { createContext, useContext, type ReactNode } from 'react';
 import { useMCP, type UseMCPState } from '@/hooks/use-mcp';
-import { MCP_SERVER_CONFIGS } from '@/config/mcp-servers'; // Ensure this path is correct
+import { MCP_SERVER_CONFIGS } from '@/config/mcp-servers'; 
+import type { McpServerConfig } from '@/types/mcp'; // Import McpServerConfig
 
 // Define a default state that matches UseMCPState structure
 const defaultMCPState: UseMCPState = {
@@ -12,13 +13,17 @@ const defaultMCPState: UseMCPState = {
   isConnecting: true,
   error: null,
   isReady: false,
-  connectedServers: [],
+  // Ensure connectedServers in default state matches the expected type.
+  // The type is Array<Pick<McpServerConfig, 'id' | 'name' | 'description' | 'icon' | 'tags'> & {toolsCount: number}>
+  connectedServers: [], 
 };
 
 const MCPContext = createContext<UseMCPState>(defaultMCPState);
 
 export const MCPProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const mcpState = useMCP(MCP_SERVER_CONFIGS); // Pass the configurations here
+  // useMCP doesn't strictly need MCP_SERVER_CONFIGS passed if actions always use the central one,
+  // but passing it aligns with its signature and allows flexibility if needed.
+  const mcpState = useMCP(MCP_SERVER_CONFIGS); 
 
   return (
     <MCPContext.Provider value={mcpState}>
@@ -34,3 +39,4 @@ export const useMCPContext = (): UseMCPState => {
   }
   return context;
 };
+

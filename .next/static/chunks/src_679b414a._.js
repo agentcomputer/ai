@@ -6860,17 +6860,16 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$b
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/ui/input.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$scroll$2d$area$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/ui/scroll-area.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/ui/card.tsx [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$server$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Server$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/server.js [app-client] (ecmascript) <export default as Server>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$server$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Server$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/server.js [app-client] (ecmascript) <export default as Server>"); // Added Loader2
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/search.js [app-client] (ecmascript) <export default as Search>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plug$2d$zap$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__PlugZap$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/plug-zap.js [app-client] (ecmascript) <export default as PlugZap>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$wifi$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Wifi$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/wifi.js [app-client] (ecmascript) <export default as Wifi>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$wifi$2d$off$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__WifiOff$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/wifi-off.js [app-client] (ecmascript) <export default as WifiOff>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$help$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__HelpCircle$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/circle-help.js [app-client] (ecmascript) <export default as HelpCircle>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$briefcase$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Briefcase$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/briefcase.js [app-client] (ecmascript) <export default as Briefcase>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$terminal$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Terminal$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/terminal.js [app-client] (ecmascript) <export default as Terminal>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$lightbulb$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Lightbulb$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/lightbulb.js [app-client] (ecmascript) <export default as Lightbulb>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$brain$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Brain$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/brain.js [app-client] (ecmascript) <export default as Brain>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$message$2d$square$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__MessageSquare$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/message-square.js [app-client] (ecmascript) <export default as MessageSquare>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$workflow$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Workflow$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/workflow.js [app-client] (ecmascript) <export default as Workflow>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$loader$2d$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Loader2$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/loader-circle.js [app-client] (ecmascript) <export default as Loader2>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$contexts$2f$mcp$2d$context$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/contexts/mcp-context.tsx [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
@@ -6881,173 +6880,74 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-const MOCK_MCP_SERVERS = [
-    {
-        id: 'desktop-commander',
-        name: 'Desktop Commander (@wonderwhy-er)',
-        description: 'Execute terminal commands and manage files with diff editing. For coding, shell, terminal, and task automation.',
-        status: 'Online',
-        type: 'Private',
-        region: 'Local',
-        tags: [
-            'Coding',
-            'Shell',
-            'Automation',
-            'Files'
-        ],
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$terminal$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Terminal$3e$__["Terminal"]
-    },
-    {
-        id: 'sequential-thinking',
-        name: 'Sequential Thinking (@smithery-ai)',
-        description: 'An MCP server for dynamic and reflective problem-solving through a structured thinking process.',
-        status: 'Online',
-        type: 'Official',
-        region: 'Remote',
-        tags: [
-            'Problem Solving',
-            'AI',
-            'Reflection'
-        ],
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$brain$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Brain$3e$__["Brain"]
-    },
-    {
-        id: 'toolbox',
-        name: 'Toolbox (@smithery)',
-        description: 'Dynamically routes to all MCPs in Smithery registry. Prompts for configuration when needed. Recommended for Claude Desktop.',
-        status: 'Online',
-        type: 'Utility',
-        region: 'Remote',
-        tags: [
-            'Routing',
-            'Registry',
-            'Claude'
-        ],
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$briefcase$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Briefcase$3e$__["Briefcase"]
-    },
-    {
-        id: 'context7',
-        name: 'Context7 (@upstash)',
-        description: "Fetch up-to-date, version-specific documentation & code examples. Add 'use context7' to questions.",
-        status: 'Online',
-        type: 'Official',
-        region: 'Remote',
-        tags: [
-            'Documentation',
-            'Coding',
-            'Context'
-        ],
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$lightbulb$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Lightbulb$3e$__["Lightbulb"]
-    },
-    {
-        id: 'mcp-us-west-1',
-        name: 'Nexus Prime (US West)',
-        description: 'General purpose MCP server with balanced capabilities.',
-        status: 'Online',
-        type: 'Official',
-        region: 'US West',
-        tags: [
-            'General',
-            'Cloud'
-        ],
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$server$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Server$3e$__["Server"]
-    },
-    {
-        id: 'mcp-eu-central-1',
-        name: 'Orion-EU (EU Central)',
-        description: 'High-performance server for compute-intensive tasks.',
-        status: 'Online',
-        type: 'Official',
-        region: 'EU Central',
-        tags: [
-            'High Performance',
-            'Compute'
-        ],
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$server$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Server$3e$__["Server"]
-    },
-    {
-        id: 'mcp-asia-east-1',
-        name: 'Cygnus-AI (Asia East)',
-        description: 'Specialized in advanced AI model hosting.',
-        status: 'Offline',
-        type: 'Official',
-        region: 'Asia East',
-        tags: [
-            'AI Models',
-            'Specialized'
-        ],
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$server$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Server$3e$__["Server"]
-    },
-    {
-        id: 'community-forge',
-        name: 'Community Forge',
-        description: 'Open-source community-run MCP server for various agent tasks.',
-        status: 'Online',
-        type: 'Community',
-        region: 'Global',
-        tags: [
-            'Open Source',
-            'Community'
-        ],
-        icon: __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$message$2d$square$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__MessageSquare$3e$__["MessageSquare"]
-    }
-];
+;
 const AddMcpServerModal = ({ isOpen, onOpenChange })=>{
     _s();
     const [searchTerm, setSearchTerm] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const { connectedServers: rawConnectedServersData, isReady: mcpIsReady, isConnecting: mcpIsConnecting } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$contexts$2f$mcp$2d$context$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMCPContext"])();
+    const [displayServers, setDisplayServers] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "AddMcpServerModal.useEffect": ()=>{
+            if (mcpIsReady && rawConnectedServersData) {
+                const formattedServers = rawConnectedServersData.map({
+                    "AddMcpServerModal.useEffect.formattedServers": (server)=>({
+                            ...server,
+                            status: 'Online',
+                            type: server.tags?.includes('Official') ? 'Official' : server.tags?.includes('Community') ? 'Community' : server.tags?.includes('Private') ? 'Private' : server.tags?.includes('Utility') ? 'Utility' : 'Official',
+                            region: server.tags?.find({
+                                "AddMcpServerModal.useEffect.formattedServers": (tag)=>tag.toLowerCase().includes('region')
+                            }["AddMcpServerModal.useEffect.formattedServers"]) || 'Global'
+                        })
+                }["AddMcpServerModal.useEffect.formattedServers"]);
+                setDisplayServers(formattedServers);
+            } else {
+                setDisplayServers([]);
+            }
+        }
+    }["AddMcpServerModal.useEffect"], [
+        mcpIsReady,
+        rawConnectedServersData
+    ]);
     const filteredServers = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "AddMcpServerModal.useMemo[filteredServers]": ()=>{
             if (!searchTerm.trim()) {
-                return MOCK_MCP_SERVERS;
+                return displayServers;
             }
-            return MOCK_MCP_SERVERS.filter({
-                "AddMcpServerModal.useMemo[filteredServers]": (server)=>server.name.toLowerCase().includes(searchTerm.toLowerCase()) || server.description.toLowerCase().includes(searchTerm.toLowerCase()) || server.type.toLowerCase().includes(searchTerm.toLowerCase()) || server.region.toLowerCase().includes(searchTerm.toLowerCase()) || server.tags && server.tags.some({
+            return displayServers.filter({
+                "AddMcpServerModal.useMemo[filteredServers]": (server)=>server.name.toLowerCase().includes(searchTerm.toLowerCase()) || server.description.toLowerCase().includes(searchTerm.toLowerCase()) || server.type && server.type.toLowerCase().includes(searchTerm.toLowerCase()) || server.region && server.region.toLowerCase().includes(searchTerm.toLowerCase()) || server.tags && server.tags.some({
                         "AddMcpServerModal.useMemo[filteredServers]": (tag)=>tag.toLowerCase().includes(searchTerm.toLowerCase())
                     }["AddMcpServerModal.useMemo[filteredServers]"])
             }["AddMcpServerModal.useMemo[filteredServers]"]);
         }
     }["AddMcpServerModal.useMemo[filteredServers]"], [
-        searchTerm
+        searchTerm,
+        displayServers
     ]);
     const getStatusIcon = (status)=>{
-        switch(status){
-            case 'Online':
-                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$wifi$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Wifi$3e$__["Wifi"], {
-                    className: "h-4 w-4 text-green-500"
-                }, void 0, false, {
-                    fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                    lineNumber: 139,
-                    columnNumber: 16
-                }, this);
-            case 'Offline':
-                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$wifi$2d$off$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__WifiOff$3e$__["WifiOff"], {
-                    className: "h-4 w-4 text-destructive"
-                }, void 0, false, {
-                    fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                    lineNumber: 141,
-                    columnNumber: 16
-                }, this);
-            case 'Experimental':
-                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$help$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__HelpCircle$3e$__["HelpCircle"], {
-                    className: "h-4 w-4 text-yellow-500"
-                }, void 0, false, {
-                    fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                    lineNumber: 143,
-                    columnNumber: 16
-                }, this);
-            default:
-                return null;
-        }
+        if (status === 'Online') return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$wifi$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Wifi$3e$__["Wifi"], {
+            className: "h-4 w-4 text-green-500"
+        }, void 0, false, {
+            fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
+            lineNumber: 75,
+            columnNumber: 37
+        }, this);
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$wifi$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Wifi$3e$__["Wifi"], {
+            className: "h-4 w-4 text-muted-foreground"
+        }, void 0, false, {
+            fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
+            lineNumber: 76,
+            columnNumber: 12
+        }, this);
     };
     const getTypeIcon = (type, customIcon)=>{
+        const IconComponent = customIcon || __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$server$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Server$3e$__["Server"];
         if (customIcon) {
-            const IconComponent = customIcon;
             return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(IconComponent, {
                 className: "h-5 w-5 text-primary"
             }, void 0, false, {
                 fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                lineNumber: 152,
-                columnNumber: 14
+                lineNumber: 82,
+                columnNumber: 16
             }, this);
         }
         switch(type){
@@ -7056,40 +6956,40 @@ const AddMcpServerModal = ({ isOpen, onOpenChange })=>{
                     className: "h-5 w-5 text-blue-500"
                 }, void 0, false, {
                     fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                    lineNumber: 156,
-                    columnNumber: 20
+                    lineNumber: 85,
+                    columnNumber: 33
                 }, this);
             case 'Community':
                 return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$message$2d$square$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__MessageSquare$3e$__["MessageSquare"], {
                     className: "h-5 w-5 text-purple-500"
                 }, void 0, false, {
                     fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                    lineNumber: 158,
-                    columnNumber: 20
+                    lineNumber: 86,
+                    columnNumber: 34
                 }, this);
             case 'Private':
                 return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$terminal$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Terminal$3e$__["Terminal"], {
                     className: "h-5 w-5 text-gray-500"
                 }, void 0, false, {
                     fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                    lineNumber: 160,
-                    columnNumber: 20
+                    lineNumber: 87,
+                    columnNumber: 32
                 }, this);
             case 'Utility':
-                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$server$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Server$3e$__["Server"], {
+                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$workflow$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Workflow$3e$__["Workflow"], {
                     className: "h-5 w-5 text-teal-500"
                 }, void 0, false, {
                     fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                    lineNumber: 162,
-                    columnNumber: 20
+                    lineNumber: 88,
+                    columnNumber: 32
                 }, this);
             default:
                 return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$server$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Server$3e$__["Server"], {
                     className: "h-5 w-5 text-muted-foreground"
                 }, void 0, false, {
                     fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                    lineNumber: 164,
-                    columnNumber: 20
+                    lineNumber: 89,
+                    columnNumber: 25
                 }, this);
         }
     };
@@ -7109,28 +7009,28 @@ const AddMcpServerModal = ({ isOpen, onOpenChange })=>{
                                     className: "mr-3 h-6 w-6 text-primary"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                                    lineNumber: 173,
+                                    lineNumber: 98,
                                     columnNumber: 13
                                 }, this),
-                                "Add MCP Server"
+                                "Connected MCP Servers"
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                            lineNumber: 172,
+                            lineNumber: 97,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DialogDescription"], {
                             className: "pt-1",
-                            children: "Search and connect to available Multi-Context Processing (MCP) servers to expand Agent-Computer's capabilities."
+                            children: "View and manage your connected Multi-Context Processing (MCP) servers. New servers can be added via configuration."
                         }, void 0, false, {
                             fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                            lineNumber: 176,
+                            lineNumber: 101,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                    lineNumber: 171,
+                    lineNumber: 96,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -7142,190 +7042,216 @@ const AddMcpServerModal = ({ isOpen, onOpenChange })=>{
                                 className: "absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                                lineNumber: 183,
+                                lineNumber: 108,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$input$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Input"], {
                                 type: "search",
-                                placeholder: "Search servers by name, description, type, or region...",
+                                placeholder: "Search connected servers...",
                                 className: "pl-10 h-10 text-sm",
                                 value: searchTerm,
                                 onChange: (e)=>setSearchTerm(e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                                lineNumber: 184,
+                                lineNumber: 109,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                        lineNumber: 182,
+                        lineNumber: 107,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                    lineNumber: 181,
+                    lineNumber: 106,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$scroll$2d$area$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ScrollArea"], {
                     className: "flex-grow min-h-0 px-6 py-4",
-                    children: filteredServers.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "grid grid-cols-1 md:grid-cols-2 gap-4",
-                        children: filteredServers.map((server)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
-                                className: "shadow-md hover:shadow-lg transition-shadow bg-card flex flex-col",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardHeader"], {
-                                        className: "pb-3",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "flex justify-between items-start",
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "flex items-center gap-2",
-                                                        children: [
-                                                            getTypeIcon(server.type, server.icon),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardTitle"], {
-                                                                className: "text-base font-semibold",
-                                                                children: server.name
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                                                                lineNumber: 203,
-                                                                columnNumber: 25
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                                                        lineNumber: 201,
-                                                        columnNumber: 23
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "flex items-center gap-1 text-xs text-muted-foreground",
-                                                        children: [
-                                                            getStatusIcon(server.status),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                children: server.status
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                                                                lineNumber: 207,
-                                                                columnNumber: 25
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                                                        lineNumber: 205,
-                                                        columnNumber: 23
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                                                lineNumber: 200,
-                                                columnNumber: 21
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardDescription"], {
-                                                className: "text-xs pt-1",
-                                                children: [
-                                                    server.region,
-                                                    " • ",
-                                                    server.type
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                                                lineNumber: 210,
-                                                columnNumber: 21
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                                        lineNumber: 199,
-                                        columnNumber: 19
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
-                                        className: "text-sm text-muted-foreground flex-grow pb-3",
-                                        children: [
-                                            server.description,
-                                            server.tags && server.tags.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "mt-2 flex flex-wrap gap-1.5",
-                                                children: server.tags.map((tag)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: "px-2 py-0.5 text-xs bg-muted text-muted-foreground rounded-full",
-                                                        children: tag
-                                                    }, tag, false, {
-                                                        fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                                                        lineNumber: 217,
-                                                        columnNumber: 27
-                                                    }, this))
+                    children: [
+                        mcpIsConnecting && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "text-center py-10 text-muted-foreground",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$loader$2d$circle$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Loader2$3e$__["Loader2"], {
+                                    className: "mx-auto h-12 w-12 text-primary animate-spin mb-4"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
+                                    lineNumber: 122,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    children: "Loading connected MCP servers..."
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
+                                    lineNumber: 123,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
+                            lineNumber: 121,
+                            columnNumber: 13
+                        }, this),
+                        !mcpIsConnecting && mcpIsReady && filteredServers.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "grid grid-cols-1 md:grid-cols-2 gap-4",
+                            children: filteredServers.map((server)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Card"], {
+                                    className: "shadow-md hover:shadow-lg transition-shadow bg-card flex flex-col",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardHeader"], {
+                                            className: "pb-3",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "flex justify-between items-start",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "flex items-center gap-2",
+                                                            children: [
+                                                                getTypeIcon(server.type, server.icon),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardTitle"], {
+                                                                    className: "text-base font-semibold",
+                                                                    children: server.name
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
+                                                                    lineNumber: 134,
+                                                                    columnNumber: 25
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
+                                                            lineNumber: 132,
+                                                            columnNumber: 23
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "flex items-center gap-1 text-xs text-muted-foreground",
+                                                            children: [
+                                                                getStatusIcon(server.status),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                    children: server.status || 'Online'
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
+                                                                    lineNumber: 138,
+                                                                    columnNumber: 25
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
+                                                            lineNumber: 136,
+                                                            columnNumber: 23
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
+                                                    lineNumber: 131,
+                                                    columnNumber: 21
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardDescription"], {
+                                                    className: "text-xs pt-1",
+                                                    children: [
+                                                        "ID: ",
+                                                        server.id,
+                                                        " • Tools: ",
+                                                        server.toolsCount
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
+                                                    lineNumber: 141,
+                                                    columnNumber: 21
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
+                                            lineNumber: 130,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardContent"], {
+                                            className: "text-sm text-muted-foreground flex-grow pb-3",
+                                            children: [
+                                                server.description,
+                                                server.tags && server.tags.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "mt-2 flex flex-wrap gap-1.5",
+                                                    children: server.tags.map((tag)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            className: "px-2 py-0.5 text-xs bg-muted text-muted-foreground rounded-full",
+                                                            children: tag
+                                                        }, tag, false, {
+                                                            fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
+                                                            lineNumber: 150,
+                                                            columnNumber: 27
+                                                        }, this))
+                                                }, void 0, false, {
+                                                    fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
+                                                    lineNumber: 148,
+                                                    columnNumber: 23
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
+                                            lineNumber: 145,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardFooter"], {
+                                            className: "pt-0 pb-4",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
+                                                variant: "outline",
+                                                className: "w-full",
+                                                disabled: true,
+                                                children: "Details (Connection Managed)"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                                                lineNumber: 215,
-                                                columnNumber: 23
+                                                lineNumber: 156,
+                                                columnNumber: 21
                                             }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                                        lineNumber: 212,
-                                        columnNumber: 19
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$card$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CardFooter"], {
-                                        className: "pt-0 pb-4",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Button"], {
-                                            variant: "outline",
-                                            className: "w-full",
-                                            onClick: ()=>alert(`Connect to ${server.name} would be initiated.`),
-                                            disabled: server.status === 'Offline',
-                                            children: "Connect"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                                            lineNumber: 223,
-                                            columnNumber: 21
+                                            lineNumber: 155,
+                                            columnNumber: 19
                                         }, this)
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                                        lineNumber: 222,
-                                        columnNumber: 19
-                                    }, this)
-                                ]
-                            }, server.id, true, {
-                                fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                                lineNumber: 198,
-                                columnNumber: 17
-                            }, this))
-                    }, void 0, false, {
-                        fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                        lineNumber: 196,
-                        columnNumber: 13
-                    }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "text-center py-10 text-muted-foreground",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$server$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Server$3e$__["Server"], {
-                                className: "mx-auto h-12 w-12 text-gray-400 mb-4"
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                                lineNumber: 237,
-                                columnNumber: 15
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                children: "No MCP servers found matching your search."
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                                lineNumber: 238,
-                                columnNumber: 15
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-xs",
-                                children: "Try a different search term or check back later."
-                            }, void 0, false, {
-                                fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                                lineNumber: 239,
-                                columnNumber: 15
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                        lineNumber: 236,
-                        columnNumber: 13
-                    }, this)
-                }, void 0, false, {
+                                    ]
+                                }, server.id, true, {
+                                    fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
+                                    lineNumber: 129,
+                                    columnNumber: 17
+                                }, this))
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
+                            lineNumber: 127,
+                            columnNumber: 13
+                        }, this),
+                        !mcpIsConnecting && (!mcpIsReady || filteredServers.length === 0) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "text-center py-10 text-muted-foreground",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$server$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Server$3e$__["Server"], {
+                                    className: "mx-auto h-12 w-12 text-gray-400 mb-4"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
+                                    lineNumber: 170,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    children: "No MCP servers found or connected."
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
+                                    lineNumber: 171,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    className: "text-xs",
+                                    children: "Configure servers in `src/config/mcp-servers.ts` and ensure they are running."
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
+                                    lineNumber: 172,
+                                    columnNumber: 15
+                                }, this)
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
+                            lineNumber: 169,
+                            columnNumber: 13
+                        }, this)
+                    ]
+                }, void 0, true, {
                     fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                    lineNumber: 194,
+                    lineNumber: 119,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$dialog$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["DialogFooter"], {
@@ -7338,32 +7264,36 @@ const AddMcpServerModal = ({ isOpen, onOpenChange })=>{
                             children: "Close"
                         }, void 0, false, {
                             fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                            lineNumber: 246,
+                            lineNumber: 179,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                        lineNumber: 245,
+                        lineNumber: 178,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-                    lineNumber: 244,
+                    lineNumber: 177,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-            lineNumber: 170,
+            lineNumber: 95,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/cognicanvas/add-mcp-server-modal.tsx",
-        lineNumber: 169,
+        lineNumber: 94,
         columnNumber: 5
     }, this);
 };
-_s(AddMcpServerModal, "NpopCepjgTOwXUZke2nscxcEzTQ=");
+_s(AddMcpServerModal, "/fua3zqDrNdPUTkvVsDjaAoaL/Y=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$contexts$2f$mcp$2d$context$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMCPContext"]
+    ];
+});
 _c = AddMcpServerModal;
 var _c;
 __turbopack_context__.k.register(_c, "AddMcpServerModal");

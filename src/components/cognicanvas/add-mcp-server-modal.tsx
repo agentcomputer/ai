@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -15,102 +15,19 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
-import { Server, Search, PlugZap, Wifi, WifiOff, HelpCircle, Briefcase, Terminal, Lightbulb, Brain, MessageSquare } from 'lucide-react';
+import { Server, Search, PlugZap, Wifi, Briefcase, Terminal, Lightbulb, Brain, MessageSquare, Workflow, Loader2 } from 'lucide-react'; // Added Loader2
 import { cn } from '@/lib/utils';
+import { useMCPContext } from '@/contexts/mcp-context';
+import type { McpServerConfig } from '@/types/mcp';
 
-interface McpServerInfo {
-  id: string;
-  name: string;
-  description: string;
-  status: 'Online' | 'Offline' | 'Experimental';
-  type: 'Official' | 'Community' | 'Private' | 'Utility';
-  region: string;
-  tags?: string[];
-  icon?: React.ElementType;
+// Updated interface to align with what getConnectedMcpServersInfoAction provides
+interface ConnectedMcpServerInfo extends Pick<McpServerConfig, 'id' | 'name' | 'description' | 'icon' | 'tags'> {
+  toolsCount: number;
+  status?: 'Online' | 'Offline' | 'Experimental';
+  type?: 'Official' | 'Community' | 'Private' | 'Utility';
+  region?: string;
 }
 
-const MOCK_MCP_SERVERS: McpServerInfo[] = [
-  { 
-    id: 'desktop-commander', 
-    name: 'Desktop Commander (@wonderwhy-er)', 
-    description: 'Execute terminal commands and manage files with diff editing. For coding, shell, terminal, and task automation.', 
-    status: 'Online', 
-    type: 'Private', 
-    region: 'Local',
-    tags: ['Coding', 'Shell', 'Automation', 'Files'],
-    icon: Terminal,
-  },
-  { 
-    id: 'sequential-thinking', 
-    name: 'Sequential Thinking (@smithery-ai)', 
-    description: 'An MCP server for dynamic and reflective problem-solving through a structured thinking process.', 
-    status: 'Online', 
-    type: 'Official', 
-    region: 'Remote',
-    tags: ['Problem Solving', 'AI', 'Reflection'],
-    icon: Brain,
-  },
-  { 
-    id: 'toolbox', 
-    name: 'Toolbox (@smithery)', 
-    description: 'Dynamically routes to all MCPs in Smithery registry. Prompts for configuration when needed. Recommended for Claude Desktop.', 
-    status: 'Online', 
-    type: 'Utility', 
-    region: 'Remote',
-    tags: ['Routing', 'Registry', 'Claude'],
-    icon: Briefcase,
-  },
-  { 
-    id: 'context7', 
-    name: 'Context7 (@upstash)', 
-    description: "Fetch up-to-date, version-specific documentation & code examples. Add 'use context7' to questions.", 
-    status: 'Online', 
-    type: 'Official', 
-    region: 'Remote',
-    tags: ['Documentation', 'Coding', 'Context'],
-    icon: Lightbulb,
-  },
-  { 
-    id: 'mcp-us-west-1', 
-    name: 'Nexus Prime (US West)', 
-    description: 'General purpose MCP server with balanced capabilities.', 
-    status: 'Online', 
-    type: 'Official', 
-    region: 'US West',
-    tags: ['General', 'Cloud'],
-    icon: Server,
-  },
-  { 
-    id: 'mcp-eu-central-1', 
-    name: 'Orion-EU (EU Central)', 
-    description: 'High-performance server for compute-intensive tasks.', 
-    status: 'Online', 
-    type: 'Official', 
-    region: 'EU Central',
-    tags: ['High Performance', 'Compute'],
-    icon: Server,
-  },
-  { 
-    id: 'mcp-asia-east-1', 
-    name: 'Cygnus-AI (Asia East)', 
-    description: 'Specialized in advanced AI model hosting.', 
-    status: 'Offline', 
-    type: 'Official', 
-    region: 'Asia East',
-    tags: ['AI Models', 'Specialized'],
-    icon: Server,
-  },
-  { 
-    id: 'community-forge', 
-    name: 'Community Forge', 
-    description: 'Open-source community-run MCP server for various agent tasks.', 
-    status: 'Online', 
-    type: 'Community', 
-    region: 'Global',
-    tags: ['Open Source', 'Community'],
-    icon: MessageSquare,
-  },
-];
 
 interface AddMcpServerModalProps {
   isOpen: boolean;
@@ -119,49 +36,57 @@ interface AddMcpServerModalProps {
 
 export const AddMcpServerModal: React.FC<AddMcpServerModalProps> = ({ isOpen, onOpenChange }) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const { connectedServers: rawConnectedServersData, isReady: mcpIsReady, isConnecting: mcpIsConnecting } = useMCPContext();
+  
+  const [displayServers, setDisplayServers] = useState<ConnectedMcpServerInfo[]>([]);
+
+  useEffect(() => {
+    if (mcpIsReady && rawConnectedServersData) {
+      const formattedServers: ConnectedMcpServerInfo[] = rawConnectedServersData.map(server => ({
+        ...server,
+        status: 'Online', // If it's in connectedServers, it's online
+        type: server.tags?.includes('Official') ? 'Official' : 
+              server.tags?.includes('Community') ? 'Community' :
+              server.tags?.includes('Private') ? 'Private' :
+              server.tags?.includes('Utility') ? 'Utility' : 'Official',
+        region: server.tags?.find(tag => tag.toLowerCase().includes('region')) || 'Global',
+      }));
+      setDisplayServers(formattedServers);
+    } else {
+      setDisplayServers([]);
+    }
+  }, [mcpIsReady, rawConnectedServersData]);
+
 
   const filteredServers = useMemo(() => {
     if (!searchTerm.trim()) {
-      return MOCK_MCP_SERVERS;
+      return displayServers;
     }
-    return MOCK_MCP_SERVERS.filter(server =>
+    return displayServers.filter(server =>
       server.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       server.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      server.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      server.region.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (server.type && server.type.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (server.region && server.region.toLowerCase().includes(searchTerm.toLowerCase())) ||
       (server.tags && server.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase())))
     );
-  }, [searchTerm]);
+  }, [searchTerm, displayServers]);
 
-  const getStatusIcon = (status: McpServerInfo['status']) => {
-    switch (status) {
-      case 'Online':
-        return <Wifi className="h-4 w-4 text-green-500" />;
-      case 'Offline':
-        return <WifiOff className="h-4 w-4 text-destructive" />;
-      case 'Experimental':
-        return <HelpCircle className="h-4 w-4 text-yellow-500" />;
-      default:
-        return null;
-    }
+  const getStatusIcon = (status?: ConnectedMcpServerInfo['status']) => {
+    if (status === 'Online') return <Wifi className="h-4 w-4 text-green-500" />;
+    return <Wifi className="h-4 w-4 text-muted-foreground" />;
   };
 
-  const getTypeIcon = (type: McpServerInfo['type'], customIcon?: React.ElementType) => {
+  const getTypeIcon = (type?: ConnectedMcpServerInfo['type'], customIcon?: React.ElementType) => {
+    const IconComponent = customIcon || Server;
     if (customIcon) {
-      const IconComponent = customIcon;
-      return <IconComponent className="h-5 w-5 text-primary" />;
+        return <IconComponent className="h-5 w-5 text-primary" />;
     }
     switch (type) {
-        case 'Official':
-            return <Briefcase className="h-5 w-5 text-blue-500" />;
-        case 'Community':
-            return <MessageSquare className="h-5 w-5 text-purple-500" />;
-        case 'Private':
-            return <Terminal className="h-5 w-5 text-gray-500" />;
-        case 'Utility':
-            return <Server className="h-5 w-5 text-teal-500" />;
-        default:
-            return <Server className="h-5 w-5 text-muted-foreground" />;
+        case 'Official': return <Briefcase className="h-5 w-5 text-blue-500" />;
+        case 'Community': return <MessageSquare className="h-5 w-5 text-purple-500" />;
+        case 'Private': return <Terminal className="h-5 w-5 text-gray-500" />;
+        case 'Utility': return <Workflow className="h-5 w-5 text-teal-500" />;
+        default: return <Server className="h-5 w-5 text-muted-foreground" />;
     }
   };
 
@@ -171,10 +96,10 @@ export const AddMcpServerModal: React.FC<AddMcpServerModalProps> = ({ isOpen, on
         <DialogHeader className="p-6 pb-4 border-b">
           <DialogTitle className="flex items-center text-xl font-semibold">
             <PlugZap className="mr-3 h-6 w-6 text-primary" />
-            Add MCP Server
+            Connected MCP Servers
           </DialogTitle>
           <DialogDescription className="pt-1">
-            Search and connect to available Multi-Context Processing (MCP) servers to expand Agent-Computer's capabilities.
+            View and manage your connected Multi-Context Processing (MCP) servers. New servers can be added via configuration.
           </DialogDescription>
         </DialogHeader>
 
@@ -183,7 +108,7 @@ export const AddMcpServerModal: React.FC<AddMcpServerModalProps> = ({ isOpen, on
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               type="search"
-              placeholder="Search servers by name, description, type, or region..."
+              placeholder="Search connected servers..."
               className="pl-10 h-10 text-sm"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -192,7 +117,13 @@ export const AddMcpServerModal: React.FC<AddMcpServerModalProps> = ({ isOpen, on
         </div>
 
         <ScrollArea className="flex-grow min-h-0 px-6 py-4">
-          {filteredServers.length > 0 ? (
+          {mcpIsConnecting && (
+            <div className="text-center py-10 text-muted-foreground">
+              <Loader2 className="mx-auto h-12 w-12 text-primary animate-spin mb-4" />
+              <p>Loading connected MCP servers...</p>
+            </div>
+          )}
+          {!mcpIsConnecting && mcpIsReady && filteredServers.length > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {filteredServers.map((server) => (
                 <Card key={server.id} className="shadow-md hover:shadow-lg transition-shadow bg-card flex flex-col">
@@ -204,10 +135,12 @@ export const AddMcpServerModal: React.FC<AddMcpServerModalProps> = ({ isOpen, on
                       </div>
                       <div className="flex items-center gap-1 text-xs text-muted-foreground">
                         {getStatusIcon(server.status)}
-                        <span>{server.status}</span>
+                        <span>{server.status || 'Online'}</span>
                       </div>
                     </div>
-                    <CardDescription className="text-xs pt-1">{server.region} &bull; {server.type}</CardDescription>
+                    <CardDescription className="text-xs pt-1">
+                      ID: {server.id} &bull; Tools: {server.toolsCount}
+                    </CardDescription>
                   </CardHeader>
                   <CardContent className="text-sm text-muted-foreground flex-grow pb-3">
                     {server.description}
@@ -223,20 +156,20 @@ export const AddMcpServerModal: React.FC<AddMcpServerModalProps> = ({ isOpen, on
                     <Button 
                       variant="outline" 
                       className="w-full" 
-                      onClick={() => alert(`Connect to ${server.name} would be initiated.`)} // Using alert for demo
-                      disabled={server.status === 'Offline'}
+                      disabled
                     >
-                      Connect
+                      Details (Connection Managed)
                     </Button>
                   </CardFooter>
                 </Card>
               ))}
             </div>
-          ) : (
+          )}
+          {!mcpIsConnecting && (!mcpIsReady || filteredServers.length === 0) && (
             <div className="text-center py-10 text-muted-foreground">
               <Server className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-              <p>No MCP servers found matching your search.</p>
-              <p className="text-xs">Try a different search term or check back later.</p>
+              <p>No MCP servers found or connected.</p>
+              <p className="text-xs">Configure servers in `src/config/mcp-servers.ts` and ensure they are running.</p>
             </div>
           )}
         </ScrollArea>
@@ -252,3 +185,4 @@ export const AddMcpServerModal: React.FC<AddMcpServerModalProps> = ({ isOpen, on
     </Dialog>
   );
 };
+

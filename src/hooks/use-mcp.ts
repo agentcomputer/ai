@@ -2,53 +2,63 @@
 "use client";
 
 import { useState, useEffect, useCallback } from 'react';
-import type { McpTool, McpServerRegistry } from '@/types/mcp'; // McpServerConfig removed as it's not directly used here
+import type { McpTool, McpServerRegistry, McpServerConfig } from '@/types/mcp';
 import {
   initializeAndListToolsAction,
   executeMcpToolAction,
-  // getConnectedMcpServersInfoAction, // We can add this later if needed for UI display
+  getConnectedMcpServersInfoAction, // Added this action
 } from '@/actions/mcp-actions';
 import { MCP_SERVER_CONFIGS } from '@/config/mcp-servers';
 
 
+// Updated type for connectedServers to match what getConnectedMcpServersInfoAction returns
+export type ConnectedServerInfo = Pick<McpServerConfig, 'id' | 'name' | 'description' | 'icon' | 'tags'> & {toolsCount: number};
+
 export interface UseMCPState {
   tools: McpTool[];
   executeTool: (serverId: string, toolName: string, args: any) => Promise<any>;
-  isConnecting: boolean; // Represents initial connection/loading state
+  isConnecting: boolean; 
   error: string | null;
-  isReady: boolean; // True when initial tools are loaded and manager is ready on server
-  connectedServers: string[]; // IDs of successfully connected servers
+  isReady: boolean; 
+  connectedServers: ConnectedServerInfo[]; // Updated type
 }
 
 export const useMCP = (
-  // serverConfigs parameter is kept for potential future use but not directly passed to actions currently
-  // as actions use the centrally defined MCP_SERVER_CONFIGS.
   _serverConfigs: McpServerRegistry = MCP_SERVER_CONFIGS 
 ): UseMCPState => {
   const [tools, setTools] = useState<McpTool[]>([]);
-  const [isConnecting, setIsConnecting] = useState(true); // Start as true for initial load
+  const [isConnecting, setIsConnecting] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [connectedServers, setConnectedServers] = useState<string[]>([]);
+  const [connectedServers, setConnectedServers] = useState<ConnectedServerInfo[]>([]); // Updated type
 
-  const initializeAndLoadTools = useCallback(async () => {
+  const initializeAndLoadData = useCallback(async () => {
     setIsConnecting(true);
     setError(null);
     try {
-      console.log("useMCP: Calling initializeAndListToolsAction...");
-      const result = await initializeAndListToolsAction();
-      if (result.tools && result.connectedServerIds) {
-        setTools(result.tools);
-        setConnectedServers(result.connectedServerIds);
-        console.log(`useMCP: Initialization successful. Tools: ${result.tools.length}, Connected Servers: ${result.connectedServerIds.join(', ')}`);
+      console.log("useMCP: Calling initializeAndListToolsAction and getConnectedMcpServersInfoAction...");
+      // Fetch tools and basic connected server IDs first
+      const toolsResult = await initializeAndListToolsAction();
+      if (toolsResult.tools) {
+        setTools(toolsResult.tools);
+        console.log(`useMCP: Tools loaded: ${toolsResult.tools.length}`);
       } else {
-        console.warn("useMCP: initializeAndListToolsAction returned unexpected data.", result);
-        setError("MCP initialization returned incomplete data.");
+        console.warn("useMCP: initializeAndListToolsAction did not return tools.", toolsResult);
+        // setError("MCP initialization did not return tools."); // Keep error for server info
         setTools([]);
-        setConnectedServers([]);
       }
+
+      // Then fetch detailed connected server info
+      const serversInfo = await getConnectedMcpServersInfoAction();
+      setConnectedServers(serversInfo);
+      console.log(`useMCP: Connected servers info loaded: ${serversInfo.length}`);
+
+      if (!toolsResult.tools && serversInfo.length === 0) {
+        setError("MCP initialization failed to load tools or connect to servers.");
+      }
+
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to initialize MCP and list tools.';
-      console.error("useMCP: Error during initializeAndListToolsAction:", errorMessage, err);
+      const errorMessage = err instanceof Error ? err.message : 'Failed to initialize MCP and load data.';
+      console.error("useMCP: Error during initialization:", errorMessage, err);
       setError(errorMessage);
       setTools([]);
       setConnectedServers([]);
@@ -58,18 +68,15 @@ export const useMCP = (
   }, []);
 
   useEffect(() => {
-    initializeAndLoadTools();
-    // No explicit cleanup needed here for disconnectAll, as that's typically an app-level concern
-    // or handled by the server actions layer if needed (e.g. on app shutdown, if possible from server actions)
-  }, [initializeAndLoadTools]);
+    initializeAndLoadData();
+  }, [initializeAndLoadData]);
 
   const executeMcpTool = useCallback(async (
     serverId: string,
     toolName: string,
     args: any
   ): Promise<any> => {
-    if (!connectedServers.includes(serverId)) {
-        // This check is client-side. The server action will also validate.
+    if (!connectedServers.some(s => s.id === serverId)) {
         console.error(`useMCP: Attempt to execute tool on non-connected server ${serverId}`);
         throw new Error(`MCP Server ${serverId} is not listed as connected.`);
     }
@@ -77,17 +84,17 @@ export const useMCP = (
       return await executeMcpToolAction(serverId, toolName, args);
     } catch (err) {
       console.error(`useMCP: Error executing tool ${toolName} on ${serverId} via action:`, err);
-      // Potentially set an error state here if you want to display it in the UI
-      throw err; // Re-throw to be handled by the caller UI component
+      throw err; 
     }
-  }, [connectedServers]);
+  }, [connectedServers]); // Dependency on connectedServers for the check
 
   return {
     tools,
     executeTool: executeMcpTool,
     isConnecting,
     error,
-    isReady: !isConnecting && error === null && connectedServers.length > 0, // Adjusted readiness logic
+    isReady: !isConnecting && error === null, // Simplified readiness, actual server connection check is per server
     connectedServers,
   };
 };
+
