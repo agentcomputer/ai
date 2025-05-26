@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -27,7 +28,7 @@ const SIDEBAR_KEYBOARD_SHORTCUT = "b"
 type SidebarContext = {
   state: "expanded" | "collapsed"
   open: boolean
-  setOpen: (open: boolean) => void
+  setOpen: (open: boolean | ((prevState: boolean) => boolean)) => void
   openMobile: boolean
   setOpenMobile: (open: boolean) => void
   isMobile: boolean
@@ -48,15 +49,13 @@ function useSidebar() {
 const SidebarProvider = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div"> & {
-    defaultOpen?: boolean
-    open?: boolean
-    onOpenChange?: (open: boolean) => void
+    open: boolean; // Made required
+    onOpenChange: (open: boolean) => void; // Made required
   }
 >(
   (
     {
-      defaultOpen = true,
-      open: openProp,
+      open: openProp, // Renamed to openProp for clarity, as 'open' will be used for the derived state
       onOpenChange: setOpenProp,
       className,
       style,
@@ -68,26 +67,22 @@ const SidebarProvider = React.forwardRef<
     const isMobile = useIsMobile()
     const [openMobile, setOpenMobile] = React.useState(false)
 
-    const [_open, _setOpen] = React.useState(defaultOpen)
-    const open = openProp ?? _open
-    
+    // Component is now fully controlled by openProp and setOpenProp for desktop sidebar state
+    const open = openProp;
+
     const setOpen = React.useCallback(
       (value: boolean | ((prev: boolean) => boolean)) => {
         const openState = typeof value === "function" ? value(open) : value;
-        if (setOpenProp) {
-          setOpenProp(openState)
-        } else {
-          _setOpen(openState)
-        }
+        setOpenProp(openState);
       },
-      [setOpenProp, open, _setOpen] // Include _setOpen if it's used directly
+      [setOpenProp, open] 
     );
 
     const toggleSidebar = React.useCallback(() => {
       return isMobile
-        ? setOpenMobile((currentOpen) => !currentOpen)
-        : setOpen((currentOpen) => !currentOpen)
-    }, [isMobile, setOpen, setOpenMobile])
+        ? setOpenMobile((currentOpenMobile) => !currentOpenMobile)
+        : setOpen((currentOpenState) => !currentOpenState)
+    }, [isMobile, setOpen, setOpenMobile, openMobile]) // Added openMobile to deps of toggleSidebar
 
     React.useEffect(() => {
       const handleKeyDown = (event: KeyboardEvent) => {
@@ -751,3 +746,4 @@ export {
   SidebarTrigger,
   useSidebar,
 }
+ 
