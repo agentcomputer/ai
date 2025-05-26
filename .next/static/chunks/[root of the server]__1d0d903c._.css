@@ -1299,6 +1299,10 @@ body {
   overflow: hidden;
 }
 
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
 .overflow-y-auto {
   overflow-y: auto;
 }
@@ -1429,6 +1433,10 @@ body {
   border-color: #0000;
 }
 
+.border-destructive\/20 {
+  border-color: hsl(var(--destructive) / .2);
+}
+
 .border-l-transparent {
   border-left-color: #0000;
 }
@@ -1515,6 +1523,10 @@ body {
 
 .bg-transparent {
   background-color: #0000;
+}
+
+.bg-destructive\/5 {
+  background-color: hsl(var(--destructive) / .05);
 }
 
 .fill-current {
@@ -2961,6 +2973,10 @@ body {
 
   .sm\:flex {
     display: flex;
+  }
+
+  .sm\:w-auto {
+    width: auto;
   }
 
   .sm\:max-w-3xl {

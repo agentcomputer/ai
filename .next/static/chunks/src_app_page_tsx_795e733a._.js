@@ -5,8 +5,8 @@
 (globalThis.TURBOPACK_CHUNK_LISTS = globalThis.TURBOPACK_CHUNK_LISTS || []).push({
   "path": "static/chunks/src_app_page_tsx_795e733a._.js",
   "chunks": [
-    "static/chunks/src_1ccc518c._.js",
-    "static/chunks/node_modules_65c43555._.js"
+    "static/chunks/src_679b414a._.js",
+    "static/chunks/node_modules_300e5bf2._.js"
   ],
   "source": "dynamic"
 });
