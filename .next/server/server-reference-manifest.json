@@ -1,0 +1,17 @@
+{
+  "node": {
+    "40891a4250e93058c1bd791bff12e98481e9942e9a": {
+      "workers": {
+        "app/ai-code-advisor/page": {
+          "moduleId": "[project]/.next-internal/server/app/ai-code-advisor/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/app/ai-code-advisor/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/ai-code-advisor/page": "action-browser"
+      }
+    }
+  },
+  "edge": {},
+  "encryptionKey": "/V7xIa3KS1afCtB7Xq/tQ0KipO5U1Bq5+jx4fR4JsPA="
+}
