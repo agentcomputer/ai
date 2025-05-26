@@ -8,13 +8,12 @@ import { OrchestrationCenter } from './orchestration-center'; // Import the new 
 interface SpaceProps {
   activeToolInstance: ActiveToolInstance | null;
   onContentChange: (content: string) => void;
-  tools: Tool[]; // Add tools array for OrchestrationCenter
-  onSelectTool: (tool: Tool) => void; // Add onSelectTool for OrchestrationCenter
+  tools: Tool[]; 
+  onSelectTool: (tool: Tool) => void; 
 }
 
 export const Space: React.FC<SpaceProps> = ({ activeToolInstance, onContentChange, tools, onSelectTool }) => {
   if (!activeToolInstance) {
-    // If no tool is active, show the Orchestration Command Center
     return (
       <main className="flex-grow bg-background overflow-auto h-full">
         <OrchestrationCenter tools={tools} onSelectTool={onSelectTool} />
@@ -29,12 +28,9 @@ export const Space: React.FC<SpaceProps> = ({ activeToolInstance, onContentChang
       <div className="h-full w-full rounded-lg"> {/* Added rounded-lg for better aesthetics */}
          <ToolComponent 
             tool={activeToolInstance} 
-            content={activeToolInstance.content}
             onContentChange={onContentChange}
         />
       </div>
     </main>
   );
 };
-
-    

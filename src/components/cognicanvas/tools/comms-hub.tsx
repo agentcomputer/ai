@@ -37,7 +37,7 @@ const commsFeatures: CommsFeature[] = [
   },
 ];
 
-export const CommsHub: React.FC<ToolProps> = ({ tool, content, onContentChange }) => {
+export const CommsHub: React.FC<ToolProps> = ({ tool, onContentChange }) => {
   const [selectedFeature, setSelectedFeature] = useState<CommsFeature | null>(null);
 
   const handleFeatureSelect = (feature: CommsFeature) => {
@@ -124,7 +124,7 @@ export const CommsHub: React.FC<ToolProps> = ({ tool, content, onContentChange }
         <div className="w-[340px] md:w-[380px] lg:w-[420px] border-l border-border flex flex-col bg-sidebar text-sidebar-foreground shrink-0">
           <AgentStream
             activeTool={tool}
-            currentContent={selectedFeature ? `Using ${selectedFeature.name}` : tool.name}
+            currentContent={selectedFeature ? `Using ${selectedFeature.name}` : tool.content || tool.name}
             onContentUpdate={(newContent) => {
               if (onContentChange) onContentChange(newContent);
             }}

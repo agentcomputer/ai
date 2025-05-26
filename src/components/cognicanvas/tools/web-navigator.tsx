@@ -34,8 +34,6 @@ export const WebNavigator: React.FC<ToolProps> = ({ tool, onContentChange }) => 
       const result = await summarizeWebpage({ url });
       setSummary(result.summary);
       setCurrentDisplayUrl(url);
-      // Note: WebNavigator doesn't use the global onContentChange for its primary content (summary)
-      // but AgentStream might, so we pass a handler.
     } catch (e: any) {
       console.error("Error summarizing webpage:", e);
       if (e instanceof TypeError && e.message.includes("Invalid URL")) {
@@ -67,7 +65,7 @@ export const WebNavigator: React.FC<ToolProps> = ({ tool, onContentChange }) => 
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 placeholder="Enter URL (e.g., https://example.com)"
-                className="pl-10 bg-card focus:bg-background" // Ensure input field is visible
+                className="pl-10 bg-card focus:bg-background"
                 disabled={isLoading}
                 aria-label="URL input"
               />
@@ -105,7 +103,7 @@ export const WebNavigator: React.FC<ToolProps> = ({ tool, onContentChange }) => 
               <p>Enter a URL above and click "Summarize" to get an AI-powered summary of the webpage content.</p>
             </div>
           )}
-          {isLoading && !summary && ( // Show loader only if summary isn't loaded yet
+          {isLoading && !summary && ( 
             <div className="flex-grow flex items-center justify-center text-muted-foreground">
               <Loader2 className="mr-2 h-6 w-6 animate-spin" />
               <p>Loading summary, please wait...</p>
@@ -116,12 +114,9 @@ export const WebNavigator: React.FC<ToolProps> = ({ tool, onContentChange }) => 
         <div className="w-[340px] md:w-[380px] lg:w-[420px] border-l border-border flex flex-col bg-sidebar text-sidebar-foreground shrink-0">
           <AgentStream
             activeTool={tool}
-            currentContent={summary || url} // Provide summary or URL as context
+            currentContent={summary || url} 
             onContentUpdate={(newContent) => {
-              // The agent in WebNavigator typically doesn't update primary content this way.
-              // If it were to, for example, refine a summary, then setSummary(newContent) would go here.
-              // For now, this can be a no-op or log.
-              if (onContentChange) onContentChange(newContent); // For generic cases if layout expects it
+              if (onContentChange) onContentChange(newContent);
             }}
           />
           <SmartSuggestions activeToolName={tool.name} />

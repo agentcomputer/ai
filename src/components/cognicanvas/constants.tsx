@@ -1,6 +1,6 @@
 
 import { FileText, Globe, MessageSquare, ImageIcon, ListChecks, Table, Presentation, Code, Gamepad2, Settings as SettingsIcon, HelpCircle, Brain, Lightbulb, Send } from 'lucide-react';
-import type { Tool, ToolProps } from './types';
+import type { Tool, ToolProps, ActiveToolInstance } from './types'; // Added ActiveToolInstance
 import { DocumentProcessor } from './tools/document-processor';
 import { WebNavigator } from './tools/web-navigator';
 import { TaskManager } from './tools/task-manager';
@@ -15,7 +15,6 @@ import React from 'react';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 // Generic placeholder component for tools not yet implemented or for future use.
-// Current tools in ALL_TOOLS use their specific components which might themselves be placeholders.
 const PlaceholderToolComponent: React.FC<ToolProps> = ({ tool }) => {
   return (
     <div className="h-full flex flex-col shadow-xl rounded-lg overflow-hidden border-border bg-card">
@@ -163,4 +162,3 @@ export const ALL_TOOLS: Tool[] = [
     category: 'System',
   },
 ];
-

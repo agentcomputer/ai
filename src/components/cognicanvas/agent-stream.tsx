@@ -17,7 +17,6 @@ interface AgentStreamProps {
   onContentUpdate: (newContent: string) => void;
 }
 
-// Helper to generate more unique IDs
 const generateUniqueId = () => {
   return `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
 };
@@ -39,14 +38,28 @@ export const AgentStream: React.FC<AgentStreamProps> = ({ activeTool, currentCon
     scrollToBottom();
   }, [messages, scrollToBottom]);
 
+  // Effect for when the tool instance changes
   useEffect(() => {
     setMessages([
       { id: generateUniqueId(), type: 'agent', content: `Agent ready for ${activeTool.name}. How can I assist?`, timestamp: new Date() }
     ]);
     setInput('');
-    // Reset previous content ref when tool changes to avoid unintended undos
-    prevContentRef.current = activeTool.id === 'document-processor' ? currentContent : undefined;
-  }, [activeTool, currentContent]); // Added currentContent to dependencies for document-processor
+    // Initial setup of prevContentRef when the tool is first loaded or switched to
+    if (activeTool.id === 'document-processor') {
+      prevContentRef.current = currentContent;
+    } else {
+      prevContentRef.current = undefined; // Clear for other tools
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeTool.instanceId, activeTool.name]); // Only re-run if instance or name changes
+
+  // Effect to update prevContentRef for document-processor as its content changes
+  useEffect(() => {
+    if (activeTool.id === 'document-processor') {
+      prevContentRef.current = currentContent;
+    }
+  }, [activeTool.id, currentContent]);
+
 
   const addMessage = useCallback((type: AgentMessage['type'], content: string, previewData?: any) => {
     setMessages(prev => [...prev, { id: generateUniqueId(), type, content, timestamp: new Date(), previewData }]);
@@ -60,8 +73,9 @@ export const AgentStream: React.FC<AgentStreamProps> = ({ activeTool, currentCon
     setInput('');
     setIsLoading(true);
     
+    // Store content before AI modification ONLY for doc processor at this specific point
     if (activeTool.id === 'document-processor') {
-        prevContentRef.current = currentContent; // Store content before AI modification for doc processor
+        prevContentRef.current = currentContent; 
     }
 
     try {
@@ -77,9 +91,6 @@ export const AgentStream: React.FC<AgentStreamProps> = ({ activeTool, currentCon
         addMessage('agent', result.draft);
         onContentUpdate(result.draft); 
       } else if (activeTool.id === 'web-navigator') {
-        // For Web Navigator, the agent might provide guidance or answer general questions.
-        // Actual web summarization is handled by the tool's UI.
-        // We can enhance this with a specific flow for web navigator agent if needed.
         addMessage('log', `Simulating AI response for ${activeTool.name}...`);
         await new Promise(resolve => setTimeout(resolve, 800));
         addMessage('agent', `For ${activeTool.name}: If you're asking about summarizing a URL, please use the input field in the tool. Otherwise, how can I help you with web navigation tasks or general queries? Your request was: "${userInput}"`);
@@ -102,8 +113,7 @@ export const AgentStream: React.FC<AgentStreamProps> = ({ activeTool, currentCon
     if (activeTool.id === 'document-processor' && prevContentRef.current !== undefined) {
       onContentUpdate(prevContentRef.current);
       addMessage('log', `Reverted to previous content for ${activeTool.name}.`);
-      // Optionally clear prevContentRef after undo to prevent multiple undos of the same state
-      // prevContentRef.current = undefined; 
+      // prevContentRef.current will be updated by the other useEffect when currentContent changes via onContentUpdate
     } else {
       addMessage('log', 'Undo action is primarily for Document Processor content or not applicable here.');
     }
@@ -111,7 +121,7 @@ export const AgentStream: React.FC<AgentStreamProps> = ({ activeTool, currentCon
 
 
   return (
-    <div className="flex flex-col h-full bg-inherit text-foreground"> {/* Changed bg-background to bg-inherit */}
+    <div className="flex flex-col h-full bg-inherit text-foreground">
       <ScrollArea className="flex-grow p-3 space-y-3" ref={scrollAreaRef}>
         {messages.map((msg) => (
           <div key={msg.id} className={cn('flex mb-2', msg.type === 'user' ? 'justify-end' : 'justify-start')}>
@@ -165,7 +175,7 @@ export const AgentStream: React.FC<AgentStreamProps> = ({ activeTool, currentCon
         )}
       </ScrollArea>
       
-      <div className="border-t border-border p-3 space-y-2.5 bg-inherit"> {/* Changed bg-background to bg-inherit */}
+      <div className="border-t border-border p-3 space-y-2.5 bg-inherit">
         {activeTool.id === 'document-processor' && messages.some(m => m.type === 'agent') && !isLoading && (
           <div className="flex gap-2">
             <Button variant="outline" size="sm" onClick={() => addMessage('log', `Approve action clicked for ${activeTool.name}. (Simulation)`)} className="flex-1 text-xs">

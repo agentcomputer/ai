@@ -10,17 +10,17 @@ export interface Tool {
   category: string;
 }
 
-export interface ToolProps {
-  tool: Tool;
-  content?: string; 
-  onContentChange?: (content: string) => void;
-}
-
 export interface ActiveToolInstance extends Tool {
   instanceId: string;
   windowState: 'minimized' | 'default' | 'maximized'; // For future window management
   content?: string; // Tool-specific content, e.g., for DocumentProcessor
 }
+
+export interface ToolProps {
+  tool: ActiveToolInstance; // Changed from Tool to ActiveToolInstance
+  onContentChange?: (content: string) => void;
+}
+
 
 export interface AgentMessage {
   id: string;

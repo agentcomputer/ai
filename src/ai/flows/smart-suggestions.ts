@@ -1,4 +1,4 @@
-// 'use server';
+'use server';
 /**
  * @fileOverview This file defines a Genkit flow for providing smart suggestions to users based on the currently active tool in the Space.
  *
@@ -6,8 +6,6 @@
  * - SmartSuggestionsInput - The input type for the getSmartSuggestions function.
  * - SmartSuggestionsOutput - The return type for the getSmartSuggestions function.
  */
-
-'use server';
 
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';

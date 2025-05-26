@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/componen
 import { Button } from '@/components/ui/button';
 import { AgentStream } from '@/components/cognicanvas/agent-stream';
 import { SmartSuggestions } from '@/components/cognicanvas/smart-suggestions';
-import { ImageIcon, Music, Film, ArrowLeft, Palette } from 'lucide-react'; // Added Palette for main icon
+import { ImageIcon, Music, Film, ArrowLeft, Palette } from 'lucide-react';
 import React, { useState } from 'react';
 
 interface CreativeFeature {
@@ -37,7 +37,7 @@ const creativeFeatures: CreativeFeature[] = [
   },
 ];
 
-export const CreativeSuite: React.FC<ToolProps> = ({ tool, content, onContentChange }) => {
+export const CreativeSuite: React.FC<ToolProps> = ({ tool, onContentChange }) => {
   const [selectedFeature, setSelectedFeature] = useState<CreativeFeature | null>(null);
 
   const handleFeatureSelect = (feature: CreativeFeature) => {
@@ -124,7 +124,7 @@ export const CreativeSuite: React.FC<ToolProps> = ({ tool, content, onContentCha
         <div className="w-[340px] md:w-[380px] lg:w-[420px] border-l border-border flex flex-col bg-sidebar text-sidebar-foreground shrink-0">
           <AgentStream
             activeTool={tool}
-            currentContent={selectedFeature ? `Using ${selectedFeature.name}` : tool.name}
+            currentContent={selectedFeature ? `Using ${selectedFeature.name}` : tool.content || tool.name}
             onContentUpdate={(newContent) => {
               if (onContentChange) onContentChange(newContent);
             }}

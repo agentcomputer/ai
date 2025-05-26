@@ -8,7 +8,7 @@ import { FileDownloadButton } from '@/components/cognicanvas/file-download-butto
 import { AgentStream } from '@/components/cognicanvas/agent-stream';
 import { SmartSuggestions } from '@/components/cognicanvas/smart-suggestions';
 
-export const DocumentProcessor: React.FC<ToolProps> = ({ tool, content, onContentChange }) => {
+export const DocumentProcessor: React.FC<ToolProps> = ({ tool, onContentChange }) => {
   return (
     <Card className="h-full flex flex-col shadow-xl rounded-lg overflow-hidden border-border bg-card">
       <CardHeader className="bg-card border-b p-4">
@@ -21,7 +21,7 @@ export const DocumentProcessor: React.FC<ToolProps> = ({ tool, content, onConten
         {/* Textarea part */}
         <div className="flex-grow relative h-full">
           <Textarea
-            value={content || ''} // Ensure content is not undefined
+            value={tool.content || ''} 
             onChange={(e) => onContentChange?.(e.target.value)}
             placeholder="Start drafting your document..."
             className="h-full w-full resize-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 p-4 text-base absolute inset-0 bg-card text-card-foreground"
@@ -32,7 +32,7 @@ export const DocumentProcessor: React.FC<ToolProps> = ({ tool, content, onConten
         <div className="w-[340px] md:w-[380px] lg:w-[420px] border-l border-border flex flex-col bg-sidebar text-sidebar-foreground shrink-0">
           <AgentStream
             activeTool={tool}
-            currentContent={content}
+            currentContent={tool.content}
             onContentUpdate={(newContent) => onContentChange?.(newContent)}
           />
           <SmartSuggestions activeToolName={tool.name} />
@@ -40,7 +40,7 @@ export const DocumentProcessor: React.FC<ToolProps> = ({ tool, content, onConten
       </CardContent>
       <CardFooter className="border-t p-3 flex justify-end bg-card">
         <FileDownloadButton
-          content={content || ""}
+          content={tool.content || ""}
           filename={`${tool.name.toLowerCase().replace(/\s+/g, '-')}-output.txt`}
           variant="outline"
           size="sm"

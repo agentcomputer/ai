@@ -5,9 +5,9 @@ import type { ToolProps } from '@/components/cognicanvas/types';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { AgentStream } from '@/components/cognicanvas/agent-stream';
 import { SmartSuggestions } from '@/components/cognicanvas/smart-suggestions';
-import { ListChecks } from 'lucide-react'; // Using the correct icon
+import { ListChecks } from 'lucide-react'; 
 
-export const TaskManager: React.FC<ToolProps> = ({ tool, content, onContentChange }) => {
+export const TaskManager: React.FC<ToolProps> = ({ tool, onContentChange }) => {
   return (
     <Card className="h-full flex flex-col shadow-xl rounded-lg overflow-hidden border-border bg-card">
       <CardHeader className="bg-card border-b p-4">
@@ -28,7 +28,7 @@ export const TaskManager: React.FC<ToolProps> = ({ tool, content, onContentChang
         <div className="w-[340px] md:w-[380px] lg:w-[420px] border-l border-border flex flex-col bg-sidebar text-sidebar-foreground shrink-0">
           <AgentStream
             activeTool={tool}
-            currentContent={content || ''}
+            currentContent={tool.content || ''}
             onContentUpdate={(newContent) => {
               if (onContentChange) onContentChange(newContent);
             }}

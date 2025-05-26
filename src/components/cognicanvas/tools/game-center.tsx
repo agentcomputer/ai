@@ -31,7 +31,7 @@ const games: Game[] = [
   },
 ];
 
-export const GameCenter: React.FC<ToolProps> = ({ tool, content, onContentChange }) => {
+export const GameCenter: React.FC<ToolProps> = ({ tool, onContentChange }) => {
   const [selectedGame, setSelectedGame] = useState<Game | null>(null);
 
   const handleGameSelect = (game: Game) => {
@@ -118,7 +118,7 @@ export const GameCenter: React.FC<ToolProps> = ({ tool, content, onContentChange
         <div className="w-[340px] md:w-[380px] lg:w-[420px] border-l border-border flex flex-col bg-sidebar text-sidebar-foreground shrink-0">
           <AgentStream
             activeTool={tool}
-            currentContent={selectedGame ? `Playing ${selectedGame.name}` : "Game Center"}
+            currentContent={selectedGame ? `Playing ${selectedGame.name}` : tool.content || "Game Center"}
             onContentUpdate={(newContent) => {
               if (onContentChange) onContentChange(newContent);
             }}
