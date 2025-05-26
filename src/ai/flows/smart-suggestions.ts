@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview This file defines a Genkit flow for providing smart suggestions to users based on the currently active tool in the Space.
@@ -64,3 +65,4 @@ const smartSuggestionsFlow = ai.defineFlow(
     return output!;
   }
 );
+
