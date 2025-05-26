@@ -2004,7 +2004,8 @@ const AgentStream = ({ activeTool, currentContent, onContentUpdate })=>{
     const [input, setInput] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const scrollAreaRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
-    const prevContentRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])();
+    // Ref to store the content *before* the last AI modification, for the undo functionality.
+    const contentBeforeLastAIEditRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])();
     const scrollToBottom = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
         if (scrollAreaRef.current) {
             scrollAreaRef.current.scrollTo({
@@ -2019,7 +2020,7 @@ const AgentStream = ({ activeTool, currentContent, onContentUpdate })=>{
         messages,
         scrollToBottom
     ]);
-    // Effect for when the tool instance changes
+    // Effect for when the tool instance changes: reset chat and undo state.
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         setMessages([
             {
@@ -2030,26 +2031,13 @@ const AgentStream = ({ activeTool, currentContent, onContentUpdate })=>{
             }
         ]);
         setInput('');
-        // Initial setup of prevContentRef when the tool is first loaded or switched to
-        if (activeTool.id === 'document-processor') {
-            prevContentRef.current = currentContent;
-        } else {
-            prevContentRef.current = undefined; // Clear for other tools
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // When the tool instance changes, reset the 'undo' state.
+        // This ref is populated when an AI edit is made via handleSendMessage.
+        contentBeforeLastAIEditRef.current = undefined;
     }, [
         activeTool.instanceId,
         activeTool.name
-    ]); // Only re-run if instance or name changes
-    // Effect to update prevContentRef for document-processor as its content changes
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        if (activeTool.id === 'document-processor') {
-            prevContentRef.current = currentContent;
-        }
-    }, [
-        activeTool.id,
-        currentContent
-    ]);
+    ]); // Only re-run if tool instance or name changes.
     const addMessage = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])((type, content, previewData)=>{
         setMessages((prev)=>[
                 ...prev,
@@ -2068,9 +2056,9 @@ const AgentStream = ({ activeTool, currentContent, onContentUpdate })=>{
         addMessage('user', userInput);
         setInput('');
         setIsLoading(true);
-        // Store content before AI modification ONLY for doc processor at this specific point
+        // For Document Processor, capture the content *just before* the AI modification for undo.
         if (activeTool.id === 'document-processor') {
-            prevContentRef.current = currentContent;
+            contentBeforeLastAIEditRef.current = currentContent;
         }
         try {
             addMessage('log', `Processing request for ${activeTool.name}...`);
@@ -2107,10 +2095,12 @@ const AgentStream = ({ activeTool, currentContent, onContentUpdate })=>{
         onContentUpdate
     ]);
     const handleUndo = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
-        if (activeTool.id === 'document-processor' && prevContentRef.current !== undefined) {
-            onContentUpdate(prevContentRef.current);
+        if (activeTool.id === 'document-processor' && contentBeforeLastAIEditRef.current !== undefined) {
+            onContentUpdate(contentBeforeLastAIEditRef.current);
             addMessage('log', `Reverted to previous content for ${activeTool.name}.`);
-        // prevContentRef.current will be updated by the other useEffect when currentContent changes via onContentUpdate
+        // After undoing, the "before AI" state is restored. 
+        // If another AI op is done, contentBeforeLastAIEditRef will be updated again.
+        // For a single-level undo, we don't need to clear contentBeforeLastAIEditRef here.
         } else {
             addMessage('log', 'Undo action is primarily for Document Processor content or not applicable here.');
         }
@@ -2141,25 +2131,25 @@ const AgentStream = ({ activeTool, currentContent, onContentUpdate })=>{
                                                     className: "h-3.5 w-3.5 text-primary"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                                    lineNumber: 132,
+                                                    lineNumber: 124,
                                                     columnNumber: 46
                                                 }, this),
                                                 msg.type === 'preview' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sparkles$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Sparkles$3e$__["Sparkles"], {
                                                     className: "h-3.5 w-3.5 text-accent"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                                    lineNumber: 133,
+                                                    lineNumber: 125,
                                                     columnNumber: 48
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                            lineNumber: 131,
+                                            lineNumber: 123,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                        lineNumber: 130,
+                                        lineNumber: 122,
                                         columnNumber: 17
                                     }, this),
                                     msg.type === 'user' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$avatar$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Avatar"], {
@@ -2170,17 +2160,17 @@ const AgentStream = ({ activeTool, currentContent, onContentUpdate })=>{
                                                 className: "h-3.5 w-3.5 text-accent"
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                                lineNumber: 140,
+                                                lineNumber: 132,
                                                 columnNumber: 22
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                            lineNumber: 139,
+                                            lineNumber: 131,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                        lineNumber: 138,
+                                        lineNumber: 130,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2195,24 +2185,24 @@ const AgentStream = ({ activeTool, currentContent, onContentUpdate })=>{
                                                 })
                                             }, void 0, false, {
                                                 fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                                lineNumber: 154,
+                                                lineNumber: 146,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                        lineNumber: 144,
+                                        lineNumber: 136,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                lineNumber: 128,
+                                lineNumber: 120,
                                 columnNumber: 13
                             }, this)
                         }, msg.id, false, {
                             fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                            lineNumber: 127,
+                            lineNumber: 119,
                             columnNumber: 11
                         }, this)),
                     isLoading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2228,17 +2218,17 @@ const AgentStream = ({ activeTool, currentContent, onContentUpdate })=>{
                                             className: "h-3.5 w-3.5 text-primary"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                            lineNumber: 167,
+                                            lineNumber: 159,
                                             columnNumber: 22
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                        lineNumber: 166,
+                                        lineNumber: 158,
                                         columnNumber: 19
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                    lineNumber: 165,
+                                    lineNumber: 157,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2247,29 +2237,29 @@ const AgentStream = ({ activeTool, currentContent, onContentUpdate })=>{
                                         className: "h-4 w-4 animate-spin text-primary"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                        lineNumber: 171,
+                                        lineNumber: 163,
                                         columnNumber: 21
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                    lineNumber: 170,
+                                    lineNumber: 162,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                            lineNumber: 164,
+                            lineNumber: 156,
                             columnNumber: 14
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                        lineNumber: 163,
+                        lineNumber: 155,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                lineNumber: 125,
+                lineNumber: 117,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2288,14 +2278,14 @@ const AgentStream = ({ activeTool, currentContent, onContentUpdate })=>{
                                         className: "mr-1.5 h-3.5 w-3.5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                        lineNumber: 182,
+                                        lineNumber: 174,
                                         columnNumber: 15
                                     }, this),
                                     " Approve"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                lineNumber: 181,
+                                lineNumber: 173,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -2303,20 +2293,20 @@ const AgentStream = ({ activeTool, currentContent, onContentUpdate })=>{
                                 size: "sm",
                                 onClick: handleUndo,
                                 className: "flex-1 text-xs",
-                                disabled: prevContentRef.current === undefined,
+                                disabled: contentBeforeLastAIEditRef.current === undefined,
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$rotate$2d$ccw$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__RotateCcw$3e$__["RotateCcw"], {
                                         className: "mr-1.5 h-3.5 w-3.5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                        lineNumber: 185,
+                                        lineNumber: 177,
                                         columnNumber: 15
                                     }, this),
                                     " Undo"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                lineNumber: 184,
+                                lineNumber: 176,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -2329,20 +2319,20 @@ const AgentStream = ({ activeTool, currentContent, onContentUpdate })=>{
                                         className: "mr-1.5 h-3.5 w-3.5"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                        lineNumber: 188,
+                                        lineNumber: 180,
                                         columnNumber: 15
                                     }, this),
                                     " Modify"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                lineNumber: 187,
+                                lineNumber: 179,
                                 columnNumber: 14
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                        lineNumber: 180,
+                        lineNumber: 172,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2364,7 +2354,7 @@ const AgentStream = ({ activeTool, currentContent, onContentUpdate })=>{
                                 "aria-label": "Chat input for AI agent"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                lineNumber: 194,
+                                lineNumber: 186,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ui$2f$button$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Button"], {
@@ -2377,7 +2367,7 @@ const AgentStream = ({ activeTool, currentContent, onContentUpdate })=>{
                                         className: "h-4 w-4"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                        lineNumber: 210,
+                                        lineNumber: 202,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2385,31 +2375,31 @@ const AgentStream = ({ activeTool, currentContent, onContentUpdate })=>{
                                         children: "Send message"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                        lineNumber: 211,
+                                        lineNumber: 203,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                                lineNumber: 209,
+                                lineNumber: 201,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                        lineNumber: 193,
+                        lineNumber: 185,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-                lineNumber: 178,
+                lineNumber: 170,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/components/cognicanvas/agent-stream.tsx",
-        lineNumber: 124,
+        lineNumber: 116,
         columnNumber: 5
     }, this);
 };

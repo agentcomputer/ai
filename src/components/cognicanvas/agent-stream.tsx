@@ -26,7 +26,9 @@ export const AgentStream: React.FC<AgentStreamProps> = ({ activeTool, currentCon
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
-  const prevContentRef = useRef<string | undefined>();
+  
+  // Ref to store the content *before* the last AI modification, for the undo functionality.
+  const contentBeforeLastAIEditRef = useRef<string | undefined>();
 
   const scrollToBottom = useCallback(() => {
     if (scrollAreaRef.current) {
@@ -38,28 +40,16 @@ export const AgentStream: React.FC<AgentStreamProps> = ({ activeTool, currentCon
     scrollToBottom();
   }, [messages, scrollToBottom]);
 
-  // Effect for when the tool instance changes
+  // Effect for when the tool instance changes: reset chat and undo state.
   useEffect(() => {
     setMessages([
       { id: generateUniqueId(), type: 'agent', content: `Agent ready for ${activeTool.name}. How can I assist?`, timestamp: new Date() }
     ]);
     setInput('');
-    // Initial setup of prevContentRef when the tool is first loaded or switched to
-    if (activeTool.id === 'document-processor') {
-      prevContentRef.current = currentContent;
-    } else {
-      prevContentRef.current = undefined; // Clear for other tools
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeTool.instanceId, activeTool.name]); // Only re-run if instance or name changes
-
-  // Effect to update prevContentRef for document-processor as its content changes
-  useEffect(() => {
-    if (activeTool.id === 'document-processor') {
-      prevContentRef.current = currentContent;
-    }
-  }, [activeTool.id, currentContent]);
-
+    // When the tool instance changes, reset the 'undo' state.
+    // This ref is populated when an AI edit is made via handleSendMessage.
+    contentBeforeLastAIEditRef.current = undefined;
+  }, [activeTool.instanceId, activeTool.name]); // Only re-run if tool instance or name changes.
 
   const addMessage = useCallback((type: AgentMessage['type'], content: string, previewData?: any) => {
     setMessages(prev => [...prev, { id: generateUniqueId(), type, content, timestamp: new Date(), previewData }]);
@@ -73,9 +63,9 @@ export const AgentStream: React.FC<AgentStreamProps> = ({ activeTool, currentCon
     setInput('');
     setIsLoading(true);
     
-    // Store content before AI modification ONLY for doc processor at this specific point
+    // For Document Processor, capture the content *just before* the AI modification for undo.
     if (activeTool.id === 'document-processor') {
-        prevContentRef.current = currentContent; 
+        contentBeforeLastAIEditRef.current = currentContent; 
     }
 
     try {
@@ -110,10 +100,12 @@ export const AgentStream: React.FC<AgentStreamProps> = ({ activeTool, currentCon
   }, [input, addMessage, activeTool, currentContent, onContentUpdate]);
   
   const handleUndo = useCallback(() => {
-    if (activeTool.id === 'document-processor' && prevContentRef.current !== undefined) {
-      onContentUpdate(prevContentRef.current);
+    if (activeTool.id === 'document-processor' && contentBeforeLastAIEditRef.current !== undefined) {
+      onContentUpdate(contentBeforeLastAIEditRef.current);
       addMessage('log', `Reverted to previous content for ${activeTool.name}.`);
-      // prevContentRef.current will be updated by the other useEffect when currentContent changes via onContentUpdate
+      // After undoing, the "before AI" state is restored. 
+      // If another AI op is done, contentBeforeLastAIEditRef will be updated again.
+      // For a single-level undo, we don't need to clear contentBeforeLastAIEditRef here.
     } else {
       addMessage('log', 'Undo action is primarily for Document Processor content or not applicable here.');
     }
@@ -181,7 +173,7 @@ export const AgentStream: React.FC<AgentStreamProps> = ({ activeTool, currentCon
             <Button variant="outline" size="sm" onClick={() => addMessage('log', `Approve action clicked for ${activeTool.name}. (Simulation)`)} className="flex-1 text-xs">
               <CheckCircle className="mr-1.5 h-3.5 w-3.5" /> Approve
             </Button>
-            <Button variant="outline" size="sm" onClick={handleUndo} className="flex-1 text-xs" disabled={prevContentRef.current === undefined}>
+            <Button variant="outline" size="sm" onClick={handleUndo} className="flex-1 text-xs" disabled={contentBeforeLastAIEditRef.current === undefined}>
               <RotateCcw className="mr-1.5 h-3.5 w-3.5" /> Undo
             </Button>
              <Button variant="outline" size="sm" onClick={() => addMessage('log', `Modify action clicked for ${activeTool.name}. (Simulation)`)} className="flex-1 text-xs">
