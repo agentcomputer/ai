@@ -17,7 +17,7 @@ export interface ActiveToolInstance extends Tool {
 }
 
 export interface ToolProps {
-  tool: ActiveToolInstance; // Changed from Tool to ActiveToolInstance
+  tool: ActiveToolInstance; 
   onContentChange?: (content: string) => void;
 }
 

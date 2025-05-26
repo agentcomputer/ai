@@ -30,7 +30,7 @@ export const WebNavigator: React.FC<ToolProps> = ({ tool, onContentChange }) => 
     setSummary('');
     setCurrentDisplayUrl(null);
     try {
-      new URL(url);
+      new URL(url); // Basic client-side validation
       const result = await summarizeWebpage({ url });
       setSummary(result.summary);
       setCurrentDisplayUrl(url);
@@ -114,12 +114,9 @@ export const WebNavigator: React.FC<ToolProps> = ({ tool, onContentChange }) => 
         <div className="w-[340px] md:w-[380px] lg:w-[420px] border-l border-border flex flex-col bg-sidebar text-sidebar-foreground shrink-0">
           <AgentStream
             activeTool={tool}
-            currentContent={summary || url}
+            currentContent={summary || url} // WebNavigator uses its own state for AgentStream context
             onContentUpdate={(newContent) => {
-              // The agent in WebNavigator typically doesn't update primary content this way.
-              // If it were to, for example, refine a summary, then setSummary(newContent) would go here.
-              // For now, this can be a no-op or log.
-              if (onContentChange) onContentChange(newContent); // For generic cases if layout expects it
+              if (onContentChange) onContentChange(newContent); 
             }}
           />
           <SmartSuggestions activeToolName={tool.name} />

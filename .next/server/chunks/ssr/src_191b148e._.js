@@ -2878,7 +2878,7 @@ const WebNavigator = ({ tool, onContentChange })=>{
         setSummary('');
         setCurrentDisplayUrl(null);
         try {
-            new URL(url);
+            new URL(url); // Basic client-side validation
             const result = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$ai$2f$flows$2f$web$2d$navigator$2d$summarization$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["summarizeWebpage"])({
                 url
             });
@@ -3146,10 +3146,7 @@ const WebNavigator = ({ tool, onContentChange })=>{
                                 activeTool: tool,
                                 currentContent: summary || url,
                                 onContentUpdate: (newContent)=>{
-                                    // The agent in WebNavigator typically doesn't update primary content this way.
-                                    // If it were to, for example, refine a summary, then setSummary(newContent) would go here.
-                                    // For now, this can be a no-op or log.
-                                    if (onContentChange) onContentChange(newContent); // For generic cases if layout expects it
+                                    if (onContentChange) onContentChange(newContent);
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/components/cognicanvas/tools/web-navigator.tsx",
@@ -3160,7 +3157,7 @@ const WebNavigator = ({ tool, onContentChange })=>{
                                 activeToolName: tool.name
                             }, void 0, false, {
                                 fileName: "[project]/src/components/cognicanvas/tools/web-navigator.tsx",
-                                lineNumber: 125,
+                                lineNumber: 122,
                                 columnNumber: 11
                             }, this)
                         ]
@@ -3180,7 +3177,7 @@ const WebNavigator = ({ tool, onContentChange })=>{
                 children: "AI-powered summarization by Agent-Computer. Results may vary."
             }, void 0, false, {
                 fileName: "[project]/src/components/cognicanvas/tools/web-navigator.tsx",
-                lineNumber: 128,
+                lineNumber: 125,
                 columnNumber: 8
             }, this)
         ]
