@@ -30,7 +30,7 @@ export const WebNavigator: React.FC<ToolProps> = ({ tool, onContentChange }) => 
     setSummary('');
     setCurrentDisplayUrl(null);
     try {
-      new URL(url); 
+      new URL(url);
       const result = await summarizeWebpage({ url });
       setSummary(result.summary);
       setCurrentDisplayUrl(url);
@@ -103,7 +103,7 @@ export const WebNavigator: React.FC<ToolProps> = ({ tool, onContentChange }) => 
               <p>Enter a URL above and click "Summarize" to get an AI-powered summary of the webpage content.</p>
             </div>
           )}
-          {isLoading && !summary && ( 
+          {isLoading && !summary && (
             <div className="flex-grow flex items-center justify-center text-muted-foreground">
               <Loader2 className="mr-2 h-6 w-6 animate-spin" />
               <p>Loading summary, please wait...</p>
@@ -114,9 +114,12 @@ export const WebNavigator: React.FC<ToolProps> = ({ tool, onContentChange }) => 
         <div className="w-[340px] md:w-[380px] lg:w-[420px] border-l border-border flex flex-col bg-sidebar text-sidebar-foreground shrink-0">
           <AgentStream
             activeTool={tool}
-            currentContent={summary || url} 
+            currentContent={summary || url}
             onContentUpdate={(newContent) => {
-              if (onContentChange) onContentChange(newContent);
+              // The agent in WebNavigator typically doesn't update primary content this way.
+              // If it were to, for example, refine a summary, then setSummary(newContent) would go here.
+              // For now, this can be a no-op or log.
+              if (onContentChange) onContentChange(newContent); // For generic cases if layout expects it
             }}
           />
           <SmartSuggestions activeToolName={tool.name} />

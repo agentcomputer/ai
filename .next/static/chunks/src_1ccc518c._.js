@@ -3531,7 +3531,10 @@ const WebNavigator = ({ tool, onContentChange })=>{
                                 activeTool: tool,
                                 currentContent: summary || url,
                                 onContentUpdate: (newContent)=>{
-                                    if (onContentChange) onContentChange(newContent);
+                                    // The agent in WebNavigator typically doesn't update primary content this way.
+                                    // If it were to, for example, refine a summary, then setSummary(newContent) would go here.
+                                    // For now, this can be a no-op or log.
+                                    if (onContentChange) onContentChange(newContent); // For generic cases if layout expects it
                                 }
                             }, void 0, false, {
                                 fileName: "[project]/src/components/cognicanvas/tools/web-navigator.tsx",
@@ -3542,7 +3545,7 @@ const WebNavigator = ({ tool, onContentChange })=>{
                                 activeToolName: tool.name
                             }, void 0, false, {
                                 fileName: "[project]/src/components/cognicanvas/tools/web-navigator.tsx",
-                                lineNumber: 122,
+                                lineNumber: 125,
                                 columnNumber: 11
                             }, this)
                         ]
@@ -3562,7 +3565,7 @@ const WebNavigator = ({ tool, onContentChange })=>{
                 children: "AI-powered summarization by Agent-Computer. Results may vary."
             }, void 0, false, {
                 fileName: "[project]/src/components/cognicanvas/tools/web-navigator.tsx",
-                lineNumber: 125,
+                lineNumber: 128,
                 columnNumber: 8
             }, this)
         ]
