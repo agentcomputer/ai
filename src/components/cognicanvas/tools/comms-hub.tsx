@@ -4,9 +4,13 @@
 import type { ToolProps } from '@/components/cognicanvas/types';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { AgentStream } from '@/components/cognicanvas/agent-stream';
 import { SmartSuggestions } from '@/components/cognicanvas/smart-suggestions';
-import { Mail, Users, Video, ArrowLeft, MessageSquare } from 'lucide-react';
+import { 
+  Mail, Users, Video, ArrowLeft, MessageSquare, Send, Inbox, Archive, 
+  Rss, AtSign, PlusSquare, MicOff, VideoOff, PhoneOff, ScreenShare, UserCircle
+} from 'lucide-react';
 import React, { useState } from 'react';
 
 interface CommsFeature {
@@ -80,25 +84,165 @@ export const CommsHub: React.FC<ToolProps> = ({ tool, onContentChange }) => {
 
   const renderSelectedFeature = () => {
     if (!selectedFeature) return null;
-    return (
-      <div className="flex flex-col items-center justify-center h-full p-4 text-center">
+
+    const commonLayoutClasses = "w-full h-full p-4 flex flex-col bg-background"; // Added bg-background
+
+    const header = (
+      <>
         <Button
           variant="ghost"
           onClick={handleBackToSelection}
-          className="absolute top-4 left-4 text-sm"
+          className="absolute top-4 left-4 text-sm z-10"
         >
           <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Comms Hub
+          Back
         </Button>
-        <selectedFeature.icon className="w-20 h-20 mb-6 text-primary" />
-        <h2 className="text-3xl font-semibold mb-3 text-foreground">{selectedFeature.name}</h2>
+        <div className="flex flex-col items-center justify-center pt-8 pb-4 text-center relative">
+          <selectedFeature.icon className="w-12 h-12 mb-3 text-primary" />
+          <h2 className="text-2xl font-semibold text-foreground">{selectedFeature.name}</h2>
+        </div>
+      </>
+    );
+
+    if (selectedFeature.id === 'email') {
+      return (
+        <div className={commonLayoutClasses}>
+          {header}
+          <div className="flex-grow flex rounded-md border bg-card text-card-foreground shadow">
+            <div className="w-1/4 border-r p-4 space-y-2">
+              <Button variant="default" className="w-full justify-start">
+                <PlusSquare className="mr-2 h-4 w-4" /> Compose
+              </Button>
+              <Button variant="ghost" className="w-full justify-start">
+                <Inbox className="mr-2 h-4 w-4" /> Inbox
+              </Button>
+              <Button variant="ghost" className="w-full justify-start">
+                <Send className="mr-2 h-4 w-4" /> Sent
+              </Button>
+              <Button variant="ghost" className="w-full justify-start">
+                <Archive className="mr-2 h-4 w-4" /> Archive
+              </Button>
+            </div>
+            <div className="w-3/4 p-4">
+              <h3 className="text-lg font-semibold mb-2">Inbox</h3>
+              <div className="space-y-3">
+                {[
+                  { sender: 'Alice Wonderland', subject: 'Project Update', snippet: 'Just wanted to share the latest progress...' },
+                  { sender: 'Bob The Builder', subject: 'Meeting Reminder', snippet: 'Friendly reminder about our meeting tomorrow...' },
+                  { sender: 'Carol Danvers', subject: 'Weekend Plans?', snippet: 'Hey, any plans for the upcoming weekend?' },
+                ].map((email, i) => (
+                  <div key={i} className="p-3 border rounded-md hover:bg-accent cursor-pointer">
+                    <p className="font-semibold text-sm">{email.sender}</p>
+                    <p className="text-xs text-muted-foreground">{email.subject}</p>
+                    <p className="text-xs truncate">{email.snippet}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedFeature.id === 'social') {
+      return (
+        <div className={commonLayoutClasses}>
+          {header}
+          <div className="flex-grow flex rounded-md border bg-card text-card-foreground shadow">
+            <div className="w-1/4 border-r p-4 space-y-2">
+              <Button variant="default" className="w-full justify-start">
+                <PlusSquare className="mr-2 h-4 w-4" /> New Post
+              </Button>
+              <Button variant="ghost" className="w-full justify-start">
+                <Rss className="mr-2 h-4 w-4" /> Feed
+              </Button>
+              <Button variant="ghost" className="w-full justify-start">
+                <AtSign className="mr-2 h-4 w-4" /> Mentions
+              </Button>
+            </div>
+            <div className="w-3/4 p-4 space-y-4 overflow-y-auto">
+              <h3 className="text-lg font-semibold mb-2">Feed</h3>
+              {[
+                { user: 'TechGuru', avatar: '/avatars/01.png', content: 'Just unboxed the new AI gadget! #AI #Tech #Innovation' },
+                { user: 'FoodieFan', avatar: '/avatars/02.png', content: 'Trying out a new recipe tonight. Wish me luck! 🍲 #Food #Cooking' },
+                { user: 'TravelExplorer', avatar: '/avatars/03.png', content: 'Exploring the beautiful mountains of Switzerland! 🏔️ #Travel #Adventure' },
+              ].map((post, i) => (
+                <Card key={i} className="bg-background">
+                  <CardHeader className="p-3">
+                    <div className="flex items-center space-x-3">
+                      <Avatar className="h-10 w-10">
+                        <AvatarImage src={post.avatar} alt={post.user} />
+                        <AvatarFallback>{post.user.substring(0,2)}</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <p className="font-semibold text-sm">{post.user}</p>
+                        <p className="text-xs text-muted-foreground">2 hours ago</p>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-3 pt-0">
+                    <p className="text-sm">{post.content}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    if (selectedFeature.id === 'video') {
+      return (
+        <div className={commonLayoutClasses}>
+          {header}
+          <div className="flex-grow flex flex-col rounded-md border bg-card text-card-foreground shadow overflow-hidden">
+            <div className="flex-grow bg-muted/40 flex items-center justify-center relative p-2">
+              <div className="w-full h-full bg-black rounded flex items-center justify-center text-white">
+                Main Video Feed (Participant A)
+              </div>
+              <div className="absolute bottom-2 right-2 grid grid-cols-2 gap-1">
+                {[1, 2, 3].map(p => (
+                  <div key={p} className="w-24 h-16 bg-slate-700 rounded flex items-center justify-center text-white text-xs p-1">
+                    User {String.fromCharCode(65 + p)}
+                  </div>
+                ))}
+                 <div className="w-24 h-16 bg-slate-800 rounded flex items-center justify-center text-white text-xs p-1">
+                    You
+                  </div>
+              </div>
+            </div>
+            <div className="border-t p-3 bg-card flex justify-center items-center space-x-2">
+              <Button variant="outline" size="icon" className="bg-red-500 hover:bg-red-600 text-white">
+                <PhoneOff className="h-5 w-5" />
+              </Button>
+              <Button variant="outline" size="icon">
+                <MicOff className="h-5 w-5" />
+              </Button>
+              <Button variant="outline" size="icon">
+                <VideoOff className="h-5 w-5" />
+              </Button>
+              <Button variant="outline" size="icon">
+                <ScreenShare className="h-5 w-5" />
+              </Button>
+               <Button variant="outline" size="icon">
+                <Users className="h-5 w-5" />
+              </Button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Fallback for any other feature or if logic is missing (should not happen with current setup)
+    return (
+      <div className="flex flex-col items-center justify-center h-full p-4 text-center">
+        {header}
         <p className="text-muted-foreground mb-4">
-          The interface for {selectedFeature.name} will be displayed here.
+          The interface for {selectedFeature.name} is under construction.
         </p>
         <div className="w-full max-w-md p-8 border border-dashed rounded-lg bg-background shadow-inner">
           <p className="text-sm text-muted-foreground">
-            This is where the dedicated UI for AI-powered {selectedFeature.name.toLowerCase()} would be.
-            Interact with the AI agent on the right for assistance with {selectedFeature.name.toLowerCase().split(' ')[0]} tasks.
+            AI assistance for {selectedFeature.name.toLowerCase()} is available via the agent panel.
           </p>
         </div>
       </div>
