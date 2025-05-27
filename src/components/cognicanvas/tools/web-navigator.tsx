@@ -1,7 +1,7 @@
 
 "use client";
 
-import type { ToolProps } from '@/components/cognicanvas/types';
+import type { ToolProps, WebSummaryPreviewData } from '@/components/cognicanvas/types';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
@@ -20,31 +20,59 @@ export const WebNavigator: React.FC<ToolProps> = ({ tool, onContentChange }) => 
   const [error, setError] = useState<string | null>(null);
   const [currentDisplayUrl, setCurrentDisplayUrl] = useState<string | null>(null);
 
-  const handleSummarize = async () => {
-    if (!url) {
+  const handleSummarize = async (targetUrl?: string) => {
+    const urlToSummarize = targetUrl || url;
+    if (!urlToSummarize) {
       setError('Please enter a URL.');
       return;
     }
     setIsLoading(true);
     setError(null);
     setSummary('');
-    setCurrentDisplayUrl(null);
+    // setCurrentDisplayUrl(null); // Don't null this out immediately if a new summary is coming for the same URL
     try {
-      new URL(url); // Basic client-side validation
-      const result = await summarizeWebpage({ url });
+      // Validate URL, add protocol if missing
+      let validatedUrl = urlToSummarize;
+      if (!validatedUrl.startsWith('http://') && !validatedUrl.startsWith('https://')) {
+        validatedUrl = 'https://' + validatedUrl;
+      }
+      new URL(validatedUrl); // This will throw if still invalid
+
+      const result = await summarizeWebpage({ url: validatedUrl });
       setSummary(result.summary);
-      setCurrentDisplayUrl(url);
+      setUrl(validatedUrl); // Update input field with validated/corrected URL
+      setCurrentDisplayUrl(validatedUrl);
+      if (onContentChange) { // Notify AgentStream if it has a generic content change handler
+        onContentChange(result.summary);
+      }
     } catch (e: any) {
       console.error("Error summarizing webpage:", e);
-      if (e instanceof TypeError && e.message.includes("Invalid URL")) {
-        setError("Invalid URL. Please ensure it starts with http:// or https://");
-      } else {
-        setError(e.message || 'Failed to summarize webpage. The AI model might be unavailable or the URL inaccessible.');
-      }
+      const errorMsg = e instanceof TypeError && e.message.includes("Invalid URL") ?
+        "Invalid URL. Please ensure it starts with http:// or https://" :
+        (e.message || 'Failed to summarize webpage. The AI model might be unavailable or the URL inaccessible.');
+      setError(errorMsg);
+      setCurrentDisplayUrl(urlToSummarize); // Show the URL that failed
     } finally {
       setIsLoading(false);
     }
   };
+  
+  const handleAgentSummary = (agentSummary: WebSummaryPreviewData) => {
+    setIsLoading(true); // Briefly set loading true to sync with potential UI updates
+    if (agentSummary.error) {
+      setError(agentSummary.error);
+      setSummary('');
+      setUrl(agentSummary.url || '');
+      setCurrentDisplayUrl(agentSummary.url || '');
+    } else {
+      setUrl(agentSummary.url);
+      setSummary(agentSummary.summaryText);
+      setCurrentDisplayUrl(agentSummary.url);
+      setError(null);
+    }
+    setIsLoading(false);
+  };
+
 
   return (
     <Card className="h-full flex flex-col shadow-xl rounded-lg overflow-hidden border-border bg-card">
@@ -70,7 +98,7 @@ export const WebNavigator: React.FC<ToolProps> = ({ tool, onContentChange }) => 
                 aria-label="URL input"
               />
             </div>
-            <Button onClick={handleSummarize} disabled={isLoading} className="shrink-0">
+            <Button onClick={() => handleSummarize()} disabled={isLoading} className="shrink-0">
               {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Search className="mr-2 h-4 w-4" />}
               {isLoading ? 'Summarizing...' : 'Summarize'}
             </Button>
@@ -114,9 +142,14 @@ export const WebNavigator: React.FC<ToolProps> = ({ tool, onContentChange }) => 
         <div className="w-[340px] md:w-[380px] lg:w-[420px] border-l border-border flex flex-col bg-sidebar text-sidebar-foreground shrink-0">
           <AgentStream
             activeTool={tool}
-            currentContent={summary || url} // WebNavigator uses its own state for AgentStream context
-            onContentUpdate={(newContent) => {
-              if (onContentChange) onContentChange(newContent); 
+            currentContent={summary || url}
+            onContentUpdate={(newContent, previewData) => {
+              if (previewData && previewData.type === 'web-summary') {
+                handleAgentSummary(previewData);
+              } else if (onContentChange) {
+                // Fallback for generic content updates if needed by other tools/logic
+                onContentChange(newContent);
+              }
             }}
           />
           <SmartSuggestions activeToolName={tool.name} />

@@ -29,11 +29,7 @@ const prompt = ai.definePrompt({
   name: 'summarizeWebpagePrompt',
   input: {schema: SummarizeWebpageInputSchema},
   output: {schema: SummarizeWebpageOutputSchema},
-  prompt: `You are an expert web content summarizer.
-
-You will receive a URL of a webpage, and your job is to summarize the content of the webpage.
-
-URL: {{{url}}}`,
+  prompt: `You are an expert web content summarizer. Summarize the following web content concisely in 3-5 sentences, focusing on the main points and key information. Content will be implicitly passed based on the URL: {{{url}}}`,
 });
 
 const summarizeWebpageFlow = ai.defineFlow(
