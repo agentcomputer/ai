@@ -29,9 +29,7 @@ const aiAssistedDraftingPrompt = ai.definePrompt({
   name: 'aiAssistedDraftingPrompt',
   input: {schema: AiAssistedDraftingInputSchema},
   output: {schema: AiAssistedDraftingOutputSchema},
-  prompt: `You are an AI assistant helping a user draft a document.
-  Based on the user's prompt, generate an initial draft of the document.
-  Prompt: {{{prompt}}}`,  
+  prompt: `You are an AI assistant helping a user draft a document. Based on the user's prompt, generate a coherent and complete initial draft of the document. Ensure the draft directly addresses the user's request. Prompt: {{{prompt}}}`,  
 });
 
 const aiAssistedDraftingFlow = ai.defineFlow(

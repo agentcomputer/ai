@@ -27,5 +27,13 @@ export interface AgentMessage {
   type: 'user' | 'agent' | 'log' | 'preview';
   content: string;
   timestamp: Date;
-  previewData?: any; 
+  previewData?: WebSummaryPreviewData | any; // Updated to include WebSummaryPreviewData
+}
+
+export interface WebSummaryPreviewData {
+  type: 'web-summary';
+  url: string;
+  summaryText: string;
+  title?: string; // Optional title of the webpage
+  error?: string; // Optional error message if summarization failed
 }
