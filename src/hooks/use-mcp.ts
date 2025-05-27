@@ -33,39 +33,53 @@ export const useMCP = (
 
   const initializeAndLoadData = useCallback(async () => {
     setIsConnecting(true);
-    setError(null);
+    // Temporary variables to hold results within this execution scope
+    let currentError: string | null = null;
+    let currentToolsCount = 0;
+    let currentServersCount = 0;
+
     try {
       console.log("useMCP: Calling initializeAndListToolsAction and getConnectedMcpServersInfoAction...");
       // Fetch tools and basic connected server IDs first
       const toolsResult = await initializeAndListToolsAction();
       if (toolsResult.tools) {
         setTools(toolsResult.tools);
+        currentToolsCount = toolsResult.tools.length; // Store for logging
         console.log(`useMCP: Tools loaded: ${toolsResult.tools.length}`);
       } else {
         console.warn("useMCP: initializeAndListToolsAction did not return tools.", toolsResult);
-        // setError("MCP initialization did not return tools."); // Keep error for server info
         setTools([]);
+        // currentToolsCount remains 0
       }
 
       // Then fetch detailed connected server info
       const serversInfo = await getConnectedMcpServersInfoAction();
       setConnectedServers(serversInfo);
+      currentServersCount = serversInfo.length; // Store for logging
       console.log(`useMCP: Connected servers info loaded: ${serversInfo.length}`);
 
       if (!toolsResult.tools && serversInfo.length === 0) {
-        setError("MCP initialization failed to load tools or connect to servers.");
+        currentError = "MCP initialization failed to load tools or connect to servers."; // Store for logging
+        setError(currentError);
+      } else {
+        setError(null); // Clear previous errors if successful, currentError remains null
       }
 
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to initialize MCP and load data.';
       console.error("useMCP: Error during initialization:", errorMessage, err);
-      setError(errorMessage);
-      setTools([]);
-      setConnectedServers([]);
+      currentError = errorMessage; // Store for logging
+      setError(currentError);
+      setTools([]); // Clear tools on error
+      setConnectedServers([]); // Clear servers on error
+      currentToolsCount = 0; // Reset counts for logging
+      currentServersCount = 0;
     } finally {
+      // Use the temporary variables for the log message
+      console.log(`useMCP: Initialization attempt finished. Final error: ${currentError}, Tools loaded: ${currentToolsCount}, Connected servers info: ${currentServersCount}`);
       setIsConnecting(false);
     }
-  }, []);
+  }, []); // Corrected: Dependency array should be empty.
 
   useEffect(() => {
     initializeAndLoadData();

@@ -8,6 +8,25 @@ import type { ToolDefinition as SdkToolDefinition } from '@modelcontextprotocol/
 import { MCP_SERVER_CONFIGS } from '@/config/mcp-servers';
 import type { McpServerConfig, McpServerRegistry, McpTool } from '@/types/mcp';
 
+// Utility function for promise with timeout
+function promiseWithTimeout<T>(promise: Promise<T>, ms: number, timeoutError = new Error('Operation timed out')): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => {
+      reject(timeoutError);
+    }, ms);
+
+    promise
+      .then(value => {
+        clearTimeout(timer);
+        resolve(value);
+      })
+      .catch(err => {
+        clearTimeout(timer);
+        reject(err);
+      });
+  });
+}
+
 // Define ToolDefinition locally if it's just a subset or re-export from SDK
 // For now, assuming McpTool from @/types/mcp is sufficient for internal mapping,
 // and SdkToolDefinition is what the SDK provides.
@@ -92,14 +111,20 @@ class MCPManager {
 
       let tools: SdkToolDefinition[] = [];
       try {
-        const toolsResponse = await client.request<{ tools: SdkToolDefinition[] }>({ method: 'tools/list' }, {});
+        const toolsListPromise = client.request<{ tools: SdkToolDefinition[] }>({ method: 'tools/list' }, {});
+        // Added timeout for tools/list request
+        const toolsResponse = await promiseWithTimeout(
+          toolsListPromise, 
+          15000, // 15 second timeout
+          new Error(`MCPManager: Tools list request timed out for ${serverConfig.name}`)
+        );
         tools = toolsResponse?.tools || [];
         console.log(`MCPManager: Fetched ${tools.length} tools from ${serverConfig.name}.`);
-      } catch (toolError) {
+      } catch (toolError) { // This catch block now handles timeouts for tools/list as well
         console.error(`MCPManager: Failed to list tools for ${serverConfig.name}:`, toolError);
-         await client.close();
-         if (serverProcess && !serverProcess.killed) serverProcess.kill();
-         throw toolError; 
+        // Re-throw to be caught by the outer catch in connectServer for consistent cleanup
+        // The outer catch will handle client.close(), serverProcess.kill(), and this.connections.delete()
+        throw toolError; 
       }
 
       this.connections.set(serverConfig.id, {
